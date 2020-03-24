@@ -33,10 +33,6 @@ router.post('/', async (req, res) => {
           profile : req.body.profile,
           gender : req.body.gender,
           location : req.body.location,
-          picture : req.body.picture,
-          ageRange :   req.body.ageRange,
-          totalAmountSpent : 0,
-          totalAmountSaved : 0,
         })
         try {
           const newUser = await user.save()
