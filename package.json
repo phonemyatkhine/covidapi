@@ -11,10 +11,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
+    "consolidate": "^0.15.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "http": "0.0.0",
     "mongoose": "^5.9.1",
     "mongoose-unique-validator": "^2.0.3",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "path": "^0.12.7",
+    "swig": "^1.4.2"
   }
 }

@@ -1,28 +1,24 @@
-require('dotenv').config();
+var express = require('express');
+var cons = require('consolidate');
+var path = require('path');
+var http = require('http');
 
-const PORT = 8080;
+var app = express();
+var port = 3000;
 
-const express = require("express"); //express library
-const mongoose = require("mongoose"); //mongoose library for mongodb models
+var apiRouter = require('./routes/apiRoute');
 
-const user = require('./routes/user.route')
-const image = require ('./routes/image.route')
+app.engine('html',cons.swig);
 
-const app = express();
-const db = mongoose.connection;
+app.set('port',port)
+app.set('view engine','html')
+app.set('views',path.join(__dirname,'views'));
 
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
+app.use(express.static(path.join(__dirname,'public')));
+app.use('/api/',apiRouter);
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser  : true, useUnifiedTopology: true });
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('Database connection successful...'));
-
-app.use(express.json()); //to use json format on the requests
-
-//routes
-app.use('/user',user)
-app.use('/image',image)
-//
-
-app.listen(PORT, () => {
- console.log(`Server is listening on port: ${PORT}`);
-});
+app.listen(port);
+console.log('starting');
+console.log("http://localhost:"+port);
