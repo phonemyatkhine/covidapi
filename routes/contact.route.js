@@ -1,17 +1,31 @@
 var express = require('express');
 var router = express.Router(); //express router to use the routing
-var contact = require('../models/contact.model');
+var Contact = require('../models/contact.model');
 
 module.exports = router; //exporting router
 
-// Get all subscribers
-router.get('/:state/:type', async (req, res) => {
+// Get contacts from certain division and certain type
+router.get('/list/:state/:type', async (req, res) => {
   
-  
-  var stateDivision = req.params.state
-  var contactType = req.params.type
+  let stateDivision = req.params.state
+  let contactType = req.params.type
   try {
-    const contact = await contact.find({state : stateDivision, contactType : contactType})
+    var contact = await Contact.find({"stateDivision" : stateDivision, "contactType" : contactType})
+    res.json(contact);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    })
+  }
+
+})
+
+//Get contacts from certain division 
+router.get('/list/:state/', async (req, res) => {
+  
+  let stateDivision = req.params.state
+  try {
+    var contact = await Contact.find({"stateDivision" : stateDivision})
     res.json(contact);
   } catch (err) {
     res.status(500).json({
@@ -22,20 +36,20 @@ router.get('/:state/:type', async (req, res) => {
 })
 
 // Get one contact
-router.get('/:id', getContact, (req, res) => {
+router.get('/name/:name', getContact, (req, res) => {
   res.json(res.contact)
 })
 
 // Create one contact
-router.post('/', async (req, res) => {
-    try {
-      var checkcontact = await contact.findOne({name: req.body.name})
-      if(checkcontact == null) {
-        var contact = new contact({
+router.post('/',getContact, async (req, res, next ) => {
+    console.log(res.contact)
+      if( contact == null) {
+        var contact = new Contact({
           name : req.body.name,
           phoneNumber : req.body.phoneNumber,
           location : req.body.location,
           stateDivision : req.body.stateDivision,
+          contactType : req.body.contactType,
           status : req.body.status,
         })
         try {
@@ -48,15 +62,9 @@ router.post('/', async (req, res) => {
         }
       } else {
         res.status(409).json({
-          message : "contact Already Exists"
+          message : "Contact Already Exists"
         })
       }
-    } catch (err) {
-      res.status(400).json({
-        message: err.message
-      })
-    }
-    
 })
 
 // Update one contact
@@ -104,16 +112,36 @@ router.delete('/:id', getContact, async (req, res) => {
 
 })
 
-async function getContact(req, res, next) {
+//post dummy data
+router.get('/fillDummyData', async (req, res) => {
 
   try {
-    
-    contact = await contact.findOne({contactId: req.params.id})
-    console.log(contact)
+    await res.contact.remove()
+    res.json({
+      message: 'Deleted This contact'
+    })
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    })
+  }
+
+})
+
+
+//get contact
+async function getContact(req, res, next) {
+
+  if(req.params.name == null) {
+    var name = req.body.name
+  } else {
+    var name = req.params.name
+  }
+
+  try {  
+    contact = await Contact.findOne({"name": name})
     if (contact == null) {
-      return res.status(404).json({
-        message: 'Cant find contact'
-      })
+      next()
     }
   } catch (err) {
     return res.status(500).json({
