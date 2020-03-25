@@ -42,7 +42,7 @@ function GetOneHospital(req,res,next)
     console.log("GetAllHospital");
     console.table(req.params)
     console.log(routes[0]);
-    res.send(req.params);
+    res.json(req.params);
 }
 
 function GetOneIDHospital(req,res,next)
@@ -50,7 +50,7 @@ function GetOneIDHospital(req,res,next)
     console.log("GetOneHospital");
     console.table(req.params);
     console.log(routes[0]);
-    res.send(req.params);
+    res.json(req.params);
 }
 
 function PostOneHospital(req,res,next)
