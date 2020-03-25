@@ -67,8 +67,7 @@ router.post('/',getContact, async (req, res, next ) => {
 })
 
 // Update one contact
-router.patch('name/:name', getContact, async (req, res) => {
-  console.log("Debug")
+router.patch('/name/:name', getContact, async (req, res) => {
   try {
     contact.overwrite({
       name : req.body.name,
@@ -94,12 +93,12 @@ router.patch('name/:name', getContact, async (req, res) => {
 })
 
 // Delete one subscriber
-router.delete('/:id', getContact, async (req, res) => {
+router.delete('/name/:id', getContact, async (req, res) => {
 
   try {
     await res.contact.remove()
     res.json({
-      message: 'Deleted This contact'
+      message: 'Deleted This Contact'
     })
   } catch (err) {
     res.status(500).json({
