@@ -2,6 +2,7 @@ require('dotenv').config() //dotenv library to use data from .env
 
 var express = require('express');
 var cons = require('consolidate');
+var cookieParser = require('cookie-parser');
 var path = require('path');
 var http = require('http');
 var port = 3000;
@@ -18,6 +19,7 @@ var db = mongoose.connection; //specify db is mongoose connection
 var contact = require('./routes/contact.route')
 var dummyData = require('./routes/dummy.route')
 var views = require('./routes/view.route')
+var admin = require('./routes/admin.route')
 
 app.engine('html',cons.swig);
 
@@ -25,13 +27,15 @@ app.set('port',port)
 app.set('view engine','html')
 app.set('views',path.join(__dirname,'views'));
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use('/contact',contact);
-app.use('/dummy', dummyData);
-app.use('/',views);
+app.use('/contact',contact)
+app.use('/dummy', dummyData)
+app.use('/admin', admin)
+app.use('/',views)
 
 app.listen(port);
 console.log('Starting.....');
