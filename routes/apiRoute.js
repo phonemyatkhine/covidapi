@@ -1,9 +1,6 @@
 var axios = require('axios');
 var express = require('express');
 var router = express.Router();
-const bodyParser = require('body-parser')
-const multer = require('multer') // v1.0.5
-const upload = multer() // for parsing multipart/form-data
 
 var Getroutes = ['/contact/:state/:place',
               '/contact/:state/:place/:id'];
@@ -16,16 +13,14 @@ var Putroutes = ['/contact/:state/:place',
 
 var Deleteroutes = [];
 
-var GetrouteFunctions = [GetOneHospital,
-                         GetOneIDHospital];
+var GetrouteFunctions = [GetHospital,
+                         GetOneHospital];
 
-var PostrouteFunctions = [PostOneHospital];
+var PostrouteFunctions = [PostHospital];
 
-var PutrouteFunctions = [PutOneHospital,
-                         PutOneIDHospital]
+var PutrouteFunctions = [PutHospital,
+                         PutOneHospital]
 
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded());
 router.use(function(req,res,next)
 {
     console.log('%s %s %s', req.method, req.url, req.path);
@@ -35,42 +30,48 @@ router.use(function(req,res,next)
 router.get(Getroutes[0],GetrouteFunctions[0]);
 router.get(Getroutes[1],GetrouteFunctions[1]);
 
-router.post(Postroutes[0],upload.array(),PostOneHospital[0]);
+router.post(Postroutes[0],PostrouteFunctions[0]);
 
-function GetOneHospital(req,res,next)
+router.put(Putroutes[0],PutrouteFunctions[0])
+router.put(Putroutes[1],PutrouteFunctions[1])
+
+function GetHospital(req,res,next)
 {
     console.log("GetAllHospital");
     console.table(req.params)
-    console.log(routes[0]);
+    console.log(Getroutes[0]);
     res.json(req.params);
 }
 
-function GetOneIDHospital(req,res,next)
+function GetOneHospital(req,res,next)
 {
     console.log("GetOneHospital");
     console.table(req.params);
-    console.log(routes[0]);
+    console.log(Getroutes[1]);
     res.json(req.params);
 }
 
-function PostOneHospital(req,res,next)
+function PostHospital(req,res,next)
 {
-    console.log("PostOneHospital");
+    console.log("PostHospital");
     console.table(req.params);
+    console.log(Postroutes[0]);
     res.json({returnStatus:1});
+}
+
+function PutHospital(req,res,next)
+{
+    console.log("PutHospital");
+    console.table(req.params)
+    console.log(Putroutes[0])
+    res.json({returnStatus:1})
 }
 
 function PutOneHospital(req,res,next)
 {
     console.log("PutOneHospital");
     console.table(req.params)
-    res.json({returnStatus:1})
-}
-
-function PutOneIDHospital(req,res,next)
-{
-    console.log("PutOneIDHospital");
-    console.table(req.params)
+    console.log(Putroutes[1])
     res.json({returnStatus:1})
 }
 
