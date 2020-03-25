@@ -17,7 +17,7 @@ var db = mongoose.connection; //specify db is mongoose connection
 //routes
 var apiRouter = require('./routes/apiRoute');
 var contact = require('./routes/contact.route')
-
+var dummyData = require('./routes/dummy.route')
 
 app.engine('html',cons.swig);
 
@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 app.use('/api',apiRouter);
 app.use('/contact',contact);
+app.use('/dummy', dummyData);
 
 app.listen(port);
 console.log('Starting.....');
