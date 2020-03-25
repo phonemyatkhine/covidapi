@@ -112,23 +112,6 @@ router.delete('/:id', getContact, async (req, res) => {
 
 })
 
-//post dummy data
-router.get('/fillDummyData', async (req, res) => {
-
-  try {
-    await res.contact.remove()
-    res.json({
-      message: 'Deleted This contact'
-    })
-  } catch (err) {
-    res.status(500).json({
-      message: err.message
-    })
-  }
-
-})
-
-
 //get contact
 async function getContact(req, res, next) {
 
