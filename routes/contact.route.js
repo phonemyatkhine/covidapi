@@ -42,7 +42,6 @@ router.get('/name/:name', getContact, (req, res) => {
 
 // Create one contact
 router.post('/',getContact, async (req, res, next ) => {
-    console.log(res.contact)
       if( contact == null) {
         var contact = new Contact({
           name : req.body.name,
@@ -68,18 +67,16 @@ router.post('/',getContact, async (req, res, next ) => {
 })
 
 // Update one contact
-router.patch('/:id', getContact, async (req, res) => {
-
+router.patch('name/:name', getContact, async (req, res) => {
+  console.log("Debug")
   try {
     contact.overwrite({
-      contactId : req.body.contactId,
       name : req.body.name,
-      email : req.body.email,
-      profile : req.body.profile,
-      gender : req.body.gender,
+      phoneNumber : req.body.phoneNumber,
       location : req.body.location,
-      picture : req.body.picture,
-      ageRange :   req.body.ageRange,
+      stateDivision : req.body.stateDivision,
+      contactType : req.body.contactType,
+      status : req.body.status,
     })
     try {
       await contact.save()
