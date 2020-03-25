@@ -1,17 +1,18 @@
 var express = require('express');
 var router = express.Router(); //express router to use the routing
-var hospital = require('../models/hospital.model');
+var contact = require('../models/contact.model');
 
 module.exports = router; //exporting router
 
 // Get all subscribers
-router.get('/:state/:object', async (req, res) => {
-  var stateDivision = req.params.state
-  var hospital = req.params.object
+router.get('/:state/:type', async (req, res) => {
   
+  
+  var stateDivision = req.params.state
+  var contactType = req.params.type
   try {
-    const hospital = await hospital.find();
-    res.json(hospital);
+    const contact = await contact.find({state : stateDivision, contactType : contactType})
+    res.json(contact);
   } catch (err) {
     res.status(500).json({
       message: err.message
@@ -20,17 +21,17 @@ router.get('/:state/:object', async (req, res) => {
 
 })
 
-// Get one hospital
-router.get('/:id', getHospital, (req, res) => {
-  res.json(res.hospital)
+// Get one contact
+router.get('/:id', getContact, (req, res) => {
+  res.json(res.contact)
 })
 
-// Create one hospital
+// Create one contact
 router.post('/', async (req, res) => {
     try {
-      var checkHospital = await hospital.findOne({name: req.body.name})
-      if(checkHospital == null) {
-        var hospital = new hospital({
+      var checkcontact = await contact.findOne({name: req.body.name})
+      if(checkcontact == null) {
+        var contact = new contact({
           name : req.body.name,
           phoneNumber : req.body.phoneNumber,
           location : req.body.location,
@@ -38,8 +39,8 @@ router.post('/', async (req, res) => {
           status : req.body.status,
         })
         try {
-          var newHospital = await hospital.save()
-          res.status(201).json(newHospital)
+          var newcontact = await contact.save()
+          res.status(201).json(newcontact)
         } catch (err) {
           res.status(400).json({
             message: err.message
@@ -47,7 +48,7 @@ router.post('/', async (req, res) => {
         }
       } else {
         res.status(409).json({
-          message : "Hospital Already Exists"
+          message : "contact Already Exists"
         })
       }
     } catch (err) {
@@ -58,12 +59,12 @@ router.post('/', async (req, res) => {
     
 })
 
-// Update one hospital
-router.patch('/:id', getHospital, async (req, res) => {
+// Update one contact
+router.patch('/:id', getContact, async (req, res) => {
 
   try {
-    hospital.overwrite({
-      hospitalId : req.body.hospitalId,
+    contact.overwrite({
+      contactId : req.body.contactId,
       name : req.body.name,
       email : req.body.email,
       profile : req.body.profile,
@@ -73,8 +74,8 @@ router.patch('/:id', getHospital, async (req, res) => {
       ageRange :   req.body.ageRange,
     })
     try {
-      await hospital.save()
-      res.status(201).json(hospital)
+      await contact.save()
+      res.status(201).json(contact)
     } catch (err) {
       res.status(400).json({
         message: err.message
@@ -88,12 +89,12 @@ router.patch('/:id', getHospital, async (req, res) => {
 })
 
 // Delete one subscriber
-router.delete('/:id', getHospital, async (req, res) => {
+router.delete('/:id', getContact, async (req, res) => {
 
   try {
-    await res.hospital.remove()
+    await res.contact.remove()
     res.json({
-      message: 'Deleted This hospital'
+      message: 'Deleted This contact'
     })
   } catch (err) {
     res.status(500).json({
@@ -103,15 +104,15 @@ router.delete('/:id', getHospital, async (req, res) => {
 
 })
 
-async function getHospital(req, res, next) {
+async function getContact(req, res, next) {
 
   try {
     
-    hospital = await hospital.findOne({hospitalId: req.params.id})
-    console.log(hospital)
-    if (hospital == null) {
+    contact = await contact.findOne({contactId: req.params.id})
+    console.log(contact)
+    if (contact == null) {
       return res.status(404).json({
-        message: 'Cant find hospital'
+        message: 'Cant find contact'
       })
     }
   } catch (err) {
@@ -120,7 +121,7 @@ async function getHospital(req, res, next) {
     })
   }
 
-  res.hospital = hospital
+  res.contact = contact
   next()
 }
 

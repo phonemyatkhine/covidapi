@@ -2,14 +2,14 @@ var axios = require('axios');
 var express = require('express');
 var router = express.Router();
 
-var Getroutes = ['/contact/:state/:place',
-              '/contact/:state/:place/:id'];
-//route -> ( state:{yangon,mandalay,...},place:{hospitals,other org},id:{"id of hospital or org"})
+var Getroutes = ['/contact/:state/:object',
+              '/contact/:state/:object/:id'];
+//route -> ( state:{yangon,mandalay,...},object:{hospitals,other org},id:{"id of hospital or org"})
 
-var Postroutes = ['/contact/:state/:place'];
+var Postroutes = ['/contact/:state/:object'];
 
-var Putroutes = ['/contact/:state/:place',
-                 '/contact/:state/:place/:id'];
+var Putroutes = ['/contact/:state/:object',
+                 '/contact/:state/:object/:id'];
 
 var Deleteroutes = [];
 
@@ -37,7 +37,7 @@ router.put(Putroutes[1],PutrouteFunctions[1])
 
 function GetHospital(req,res,next)
 {
-    console.log("GetAllHospital");
+    console.log("Get All Hospital");
     console.table(req.params)
     console.log(Getroutes[0]);
     res.json(req.params);
