@@ -14,12 +14,15 @@ const hospitalSchema = new mongoose.Schema({
   stateDivision: {
     type:String,
   },
+  contactType : {
+    type:String, 
+  },
   status: {
     type:String,
   },
   
 }, {
-  collection: 'hospital'
+  collection: 'contact'
 });
 
-module.exports = mongoose.model('hospital', hospitalSchema )
+module.exports = mongoose.model('contact', hospitalSchema )
