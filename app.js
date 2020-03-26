@@ -5,7 +5,6 @@ var cons = require('consolidate');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 var http = require('http');
-var port = 3000;
 var mongoose = require("mongoose"); //mongoose library for mongodb models
 
 var app = express();
@@ -35,11 +34,10 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use('/contact',contact)
 app.use('/dummy', dummyData)
 app.use('/admin', admin)
-app.use('/',views)
 
 app.listen(port);
 console.log('Starting.....');
-console.log("http://localhost:"+port);
+console.log("http://"+process.env.ADDRESS+":"+port);
 
 //open db which is mongoose connection 
 db.on('error', (error) => console.error(error));

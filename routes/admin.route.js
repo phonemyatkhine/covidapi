@@ -6,11 +6,18 @@ var crypto = require('crypto');
 require('dotenv').config() //dotenv library to use data from .env
 
 module.exports = router; //exporting router
+const expiration = 400000;
 
 // Get contacts from certain division and certain type
-router.post('/login', async (req, res) => {
+router.get('/login',function(req,res)
+{
+    res.render('login');
+});
 
-    const expiration = 400000;
+router.post('/login', async (req, res) => 
+{
+    console.log("Log In Post");
+    
     let email = req.body.email
     let password = req.body.password
     let hashedPassword = crypto.createHash('md5').update(password).digest('hex');
@@ -22,10 +29,13 @@ router.post('/login', async (req, res) => {
         console.log("Token");
     }
     if(token != null) {
-        console.log("token return"); 
-        res.status(200).json({
-            message: "Login Successful"
-        })
+        jwt.verify(token,process.env.KEY,(err,ele)=>{
+            if(err)
+            {
+                res.render('login');
+            }
+        });
+        res.render('admin');
     }
     else {
         try {
@@ -45,13 +55,9 @@ router.post('/login', async (req, res) => {
                 expires: new Date(Date.now() + expiration),
                 secure: false, // set to true if your using https
                 httpOnly: true,
-            }).json({
-                message : "Login Successful"
-            });
+            }).render('admin');
         } catch (err) {
-            res.status(500).json({
-                message: err.message
-            })
+            res.render('login');
         }
     }
 })
@@ -70,8 +76,18 @@ router.post('/register', async (req, res) => {
                 password: hashedPassword,
             })
             try {
-                var newAdmin = await admin.save()
-                res.status(201).json(newAdmin)
+                var newAdmin = await admin.save();
+                token = jwt.sign({
+                    email,
+                    password
+                }, process.env.KEY, {
+                    expiresIn: '1d',
+                });
+                res.status(200).cookie('token', token, {
+                    expires: new Date(Date.now() + expiration),
+                    secure: false, // set to true if your using https
+                    httpOnly: true,
+                }).render('admin');
             } catch (err) {
                 res.status(200).json({
                     message: "Admin Account Created"
@@ -87,6 +103,28 @@ router.post('/register', async (req, res) => {
 
 })
 
+router.get('/',function(req,res,next)
+{
+    var token = null;
+    if(req.cookies.token != null)
+    {
+        token = req.cookies.token;
+    }
+    if(token!=null)
+    {
+        jwt.verify(token,process.env.KEY,(err,ele)=>{
+            if(err)
+            {
+                res.render('login');
+            }
+        });
+        res.render('admin');
+    }
+    else
+    {
+        res.render('login');
+    }
+});
 
 async function getAdmin(req, res, next) {
 
