@@ -19,6 +19,7 @@ var contact = require('./routes/contact.route')
 var dummyData = require('./routes/dummy.route')
 var views = require('./routes/view.route')
 var admin = require('./routes/admin.route')
+var news = require('./routes/news.route')
 
 app.engine('html',cons.swig);
 
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use('/contact',contact)
 app.use('/dummy', dummyData)
 app.use('/admin', admin)
+app.use('/news',news)
 
 app.listen(port);
 console.log('Starting.....');
