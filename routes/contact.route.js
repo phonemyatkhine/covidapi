@@ -35,10 +35,10 @@ router.get('/list/:state/', async (req, res) => {
 
 })
 
-// Get one contact
-router.get('/name/:name', getContact, (req, res) => {
-  res.json(res.contact)
-})
+// // Get one contact
+// router.get('/name/:name', getContact, (req, res) => {
+//   res.json(res.contact)
+// })
 
 // Create one contact
 router.post('/',getContact, async (req, res, next ) => {
@@ -109,27 +109,45 @@ router.delete('/name/:id', getContact, async (req, res) => {
 })
 
 //get contact
-async function getContact(req, res, next) {
-
-  if(req.params.name == null) {
-    var name = req.body.name
-  } else {
-    var name = req.params.name
-  }
-
-  try {  
-    contact = await Contact.findOne({"name": name})
-    if (contact == null) {
-      next()
+async function getContact(req, res, next) 
+{
+  var token = null;
+    if(req.cookies.token != null)
+    {
+        token = req.cookies.token;
     }
-  } catch (err) {
-    return res.status(500).json({
-      message: err.message
-    })
-  }
-
-  res.contact = contact
-  next()
+    if(token!=null)
+    {
+        jwt.verify(token,process.env.KEY,(err,ele)=>{
+            if(err)
+            {
+                res.render('login');
+            }
+        });
+        if(req.params.name == null) {
+          var name = req.body.name
+        } else {
+          var name = req.params.name
+        }
+      
+        try {  
+          contact = await Contact.findOne({"name": name})
+          if (contact == null) {
+            next()
+          }
+        } catch (err) {
+          return res.status(500).json({
+            message: err.message
+          })
+        }
+      
+        res.contact = contact
+        next()
+    }
+    else
+    {
+        res.render('login');
+    }
 }
 
 
