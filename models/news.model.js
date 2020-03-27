@@ -17,6 +17,9 @@ const newsSchema = new mongoose.Schema(
         },
         uploadBy: {
             type: String,
+        },
+        date:{
+            type: String,
         }
     }, {
     collection: 'news'

@@ -17,7 +17,7 @@ router.get('/',async (req,res) =>
 });
 
 router.post('/',CheckToken,async (req,res,next)=>{
-    if(req.body.source && req.body.title && req.body.url && req.body.uploadBy)
+    if(req.body.source && req.body.title && req.body.url && req.body.uploadBy&&req.body.date)
     {
         var ID = null;
         if(req.body.uploadBy == 'api')
@@ -29,7 +29,8 @@ router.post('/',CheckToken,async (req,res,next)=>{
             source:req.body.source,
             title:req.body.title,
             url:req.body.url,
-            uploadBy:req.body.uploadBy
+            uploadBy:req.body.uploadBy,
+            date:req.body.date
         });
         try
         {
