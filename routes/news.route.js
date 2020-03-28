@@ -8,6 +8,7 @@ router.get('/',async (req,res) =>
 {
     try {
         var news = await News.find({});
+        res.setHeader('Access-Control-Allow-Origin','*');
         res.json(news);
       } catch (err) {
         res.status(500).json({
@@ -35,6 +36,7 @@ router.post('/',CheckToken,async (req,res,next)=>{
         try
         {
             var newNews = await news.save();
+            res.setHeader('Access-Control-Allow-Origin','*');
             res.status(201).json(newNews);
         }
         catch(err)
