@@ -4,6 +4,21 @@ var Contact = require('../models/contact.model');
 
 module.exports = router; //exporting router
 
+router.get('/list', async (req, res) => 
+{
+  try {
+    var contact = await Contact.find({});
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.json(contact);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    })
+  }
+
+})
+
+
 // Get contacts from certain division and certain type
 router.get('/list/:state/:type', async (req, res) => {
   
@@ -11,6 +26,7 @@ router.get('/list/:state/:type', async (req, res) => {
   let contactType = req.params.type
   try {
     var contact = await Contact.find({"stateDivision" : stateDivision, "contactType" : contactType})
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.json(contact);
   } catch (err) {
     res.status(500).json({
@@ -26,6 +42,7 @@ router.get('/list/:state/', async (req, res) => {
   let stateDivision = req.params.state
   try {
     var contact = await Contact.find({"stateDivision" : stateDivision})
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.json(contact);
   } catch (err) {
     res.status(500).json({
@@ -53,6 +70,7 @@ router.post('/',getContact, async (req, res, next ) => {
         })
         try {
           var newcontact = await contact.save()
+          res.setHeader('Access-Control-Allow-Origin','*');
           res.status(201).json(newcontact)
         } catch (err) {
           res.status(400).json({
@@ -79,6 +97,7 @@ router.patch('/name/:name', getContact, async (req, res) => {
     })
     try {
       await contact.save()
+      res.setHeader('Access-Control-Allow-Origin','*');
       res.status(201).json(contact)
     } catch (err) {
       res.status(400).json({
@@ -97,6 +116,7 @@ router.delete('/name/:id', getContact, async (req, res) => {
 
   try {
     await res.contact.remove()
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.json({
       message: 'Deleted This Contact'
     })
