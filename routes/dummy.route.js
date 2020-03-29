@@ -1,7 +1,9 @@
 var express = require('express');
+var axios = require('axios');
 var router = express.Router(); //express router to use the routing
 var Contact = require('../models/contact.model');
 var News = require('../models/news.model');
+const fs = require('fs');
 
 module.exports = router; //exporting router
 
@@ -82,7 +84,7 @@ router.get('/', async (req, res) => {
 router.get('/news', async (req, res, next) => {
   try {
     var news = new News({
-      ID: null,
+      ID: 272,
       source: "Eleven News",
       title: "ကိုရိုနာဗိုင်းရပ်စ်ရောဂါ သံသယလက္ခဏာများတွေ့ရှိသဖြင့် ရွှေဘိုခရိုင် ဝက်လက်မြို့နယ်ရှိ အမျိုးသားကို ကုသပေးခဲ့သည့် မန္တလေးဆေးရုံကြီး အရေးပေါ်ဌာနမှ ဆရာဝန်ကို ကန်တော်နဒီ ဆေးရုံသို့ပို့ဆောင် စောင့်ကြည့်",
       url: "https://news-eleven.com/article/163161",
@@ -123,3 +125,62 @@ router.get('/news', async (req, res, next) => {
   }
 
 })
+
+router.get('/newsApiCall', async (req, res) => {
+  var DBIDs = [];
+  try {
+    var forcheck = await News.find({});
+    forcheck.forEach(async (element) => {
+      if(element.ID != null)
+      {
+        DBIDs.push(element.ID);
+      }
+      
+    });
+    console.log(DBIDs);
+    
+  } catch (e) {
+    console.log(e);
+    
+  }  
+  try {
+    const response = await axios.get('https://api.airtable.com/v0/appbPNf9mGxdVDQko/MyanmarNews?api_key=key5fGXaRkAhfHArR');
+    var data = response.data.records;
+    Jdata = JSON.stringify(data);
+    data.forEach( async element => {
+      if(DBIDs.includes(element.fields.id)!=true)
+      {
+        //console.log(element.fields.id);
+        
+        
+        var news = new News(
+          {
+            ID:element.fields.id,
+            source:element.fields.source,
+            title:element.fields.title,
+            url:element.fields.url,
+            uploadBy:'api',
+            date:element.fields.date
+          }
+        );
+        try {
+          await news.save();
+        } catch (err) {
+          res.status(400).json({
+            message: err.message
+          })
+        }
+      }
+    });
+    fs.writeFile('covidnews.json', Jdata, (err) => {
+      // throws an error, you could also catch it here
+      if (err) throw err;
+
+      // success case, the file was saved
+      console.log('Data saved!');
+    });
+    res.end();
+  } catch (error) {
+    console.error(error);
+  }
+});
