@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login Form</title>
-    <link rel="stylesheet" href="adminLogin.css">
+    <link rel="stylesheet" href="/static/css/adminLogin.css">
 </head>
 <body>
     <div class="loginBox">
-        <img src="image.jpg" class="admin">
+        <img src="/static/img/image.jpg" class="admin">
         <h2>Login In Here</h2>
-        <form>
+        <form method="POST" action="/admin/login">
             <p>Email</p>
-            <input type="text" name="" placeholder="Enter Email">
+            <input type="text" name="email" placeholder="Enter Email">
             <p>Password</p>
-            <input type="password" name="" placeholder="******">
-            <input type="submit" name="" value="Sign In">
+            <input type="password" name="password" placeholder="******">
+            <input type="submit" value="Sign In">
             <a href="#">Forget Password</a>
         </form>
     </div>

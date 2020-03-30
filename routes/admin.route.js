@@ -16,7 +16,7 @@ router.get('/login',function(req,res)
 router.post('/login', async (req, res) => 
 {
     console.log("Log In Post");
-    
+    console.log(req.body);
     let email = req.body.email
     let password = req.body.password
     let hashedPassword = crypto.createHash('md5').update(password).digest('hex');
