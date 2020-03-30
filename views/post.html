@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/AdminContact.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="utf-8"/>
+    <style>
+        .table-title .add-new i {
+            margin-right: 4px;
+        }
+        table.table {
+            table-layout: fixed;
+        }
+        table.table tr th, table.table tr td {
+            border-color: #e9e9e9;
+        }
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        table.table th:last-child {
+            width: 100px;
+        }
+        table.table td a {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 5px;
+            min-width: 24px;
+        }
+        table.table td a.add {
+            color: #27C46B;
+        }
+        table.table td a.edit {
+            color: #FFC107;
+        }
+        table.table td a.delete {
+            color: #E34724;
+        }
+        table.table td i {
+            font-size: 19px;
+        }
+        table.table td a.add i {
+            font-size: 24px;
+            margin-right: -1px;
+            position: relative;
+            top: 3px;
+        }
+        table.table .form-control {
+            height: 32px;
+            line-height: 32px;
+            box-shadow: none;
+            border-radius: 2px;
+        }
+        table.table .form-control.error {
+            border-color: #f50000;
+        }
+        table.table td .add {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="myNav" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="overlay-content">
+        <a href="#">Contacts</a>
+        <a href="../Admin Panel/Map.html">News</a>
+    </div>
+</div>
+
+<div class="headercontainer">
+    <div class="menubutton" style="font-size:24px;cursor:pointer" onclick="openNav()"><i class="material-icons">sort</i></div>
+    <div class="heading">Contacts</div>
+    <div class="space"></div>
+</div><hr>
+
+
+<div class="container" style="width: 100%; margin-left: 0;">
+    <section>
+        <!--for demo wrap-->
+        <div class="tbl-header">
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 5%">ID</th>
+                    <th style="width: 10%">Source</th>
+                    <th style="width: 10%">Title</th>
+                    <th style="width: 10%">URL</th>
+                    <th style="width: 10%">Date</th>
+                    <th style="width: 10%">Upload By</th>
+                    <th style="width: 35%">Status</th>
+                    <th style="width: 10%">Actions</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td style="overflow: auto;width: 5%">1</td>
+                    <td style="overflow: auto;width: 10%">Eleven</td>
+                    <td style="overflow: auto;width: 10%">Corona</td>
+                    <td style="overflow: auto;width: 10%">https://corona</td>
+                    <td style="overflow: auto;width: 10%">28/3/2020</td>
+                    <td style="overflow: auto;width: 10%">AAA</td>
+                    <td style="overflow: auto;width: 35%">what is is is  is is is is is</td>
+                    <td style="overflow: auto;width: 10%">
+                        <a class="add" title="Add" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Add</div></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Edit</div></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><div class="btn btn-danger" style="font-size: 12px;">Delete</div></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="overflow: auto;width: 5%">1</td>
+                    <td style="overflow: auto;width: 10%">Eleven</td>
+                    <td style="overflow: auto;width: 10%">Corona</td>
+                    <td style="overflow: auto;width: 10%">https://corona</td>
+                    <td style="overflow: auto;width: 10%">28/3/2020</td>
+                    <td style="overflow: auto;width: 10%">AAA</td>
+                    <td style="overflow: auto;width: 35%">what is is is  is is is is is</td>
+                    <td style="overflow: auto;width: 10%">
+                        <a class="add" title="Add" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Add</div></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Edit</div></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><div class="btn btn-danger" style="font-size: 12px;">Delete</div></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="overflow: auto;width: 5%">1</td>
+                    <td style="overflow: auto;width: 10%">Eleven</td>
+                    <td style="overflow: auto;width: 10%">Corona</td>
+                    <td style="overflow: auto;width: 10%">https://corona</td>
+                    <td style="overflow: auto;width: 10%">28/3/2020</td>
+                    <td style="overflow: auto;width: 10%">AAA</td>
+                    <td style="overflow: auto;width: 35%">what is is is  is is is is is</td>
+                    <td style="overflow: auto;width: 10%">
+                        <a class="add" title="Add" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Add</div></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Edit</div></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><div class="btn btn-danger" style="font-size: 12px;">Delete</div></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="overflow: auto;width: 5%">1</td>
+                    <td style="overflow: auto;width: 10%">Eleven</td>
+                    <td style="overflow: auto;width: 10%">Corona</td>
+                    <td style="overflow: auto;width: 10%">https://corona</td>
+                    <td style="overflow: auto;width: 10%">28/3/2020</td>
+                    <td style="overflow: auto;width: 10%">AAA</td>
+                    <td style="overflow: auto;width: 35%">what is is is  is is is is is</td>
+                    <td style="overflow: auto;width: 10%">
+                        <a class="add" title="Add" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Add</div></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Edit</div></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><div class="btn btn-danger" style="font-size: 12px;">Delete</div></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="overflow: auto;width: 5%">1</td>
+                    <td style="overflow: auto;width: 10%">Eleven</td>
+                    <td style="overflow: auto;width: 10%">Corona</td>
+                    <td style="overflow: auto;width: 10%">https://corona</td>
+                    <td style="overflow: auto;width: 10%">28/3/2020</td>
+                    <td style="overflow: auto;width: 10%">AAA</td>
+                    <td style="overflow: auto;width: 35%">what is is is  is is is is is</td>
+                    <td style="overflow: auto;width: 10%">
+                        <a class="add" title="Add" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Add</div></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Edit</div></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><div class="btn btn-danger" style="font-size: 12px;">Delete</div></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="overflow: auto;width: 5%">1</td>
+                    <td style="overflow: auto;width: 10%">Eleven</td>
+                    <td style="overflow: auto;width: 10%">Corona</td>
+                    <td style="overflow: auto;width: 10%">https://corona</td>
+                    <td style="overflow: auto;width: 10%">28/3/2020</td>
+                    <td style="overflow: auto;width: 10%">AAA</td>
+                    <td style="overflow: auto;width: 35%">what is is is  is is is is is</td>
+                    <td style="overflow: auto;width: 10%">
+                        <a class="add" title="Add" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Add</div></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Edit</div></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><div class="btn btn-danger" style="font-size: 12px;">Delete</div></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="overflow: auto;width: 5%">1</td>
+                    <td style="overflow: auto;width: 10%">Eleven</td>
+                    <td style="overflow: auto;width: 10%">Corona</td>
+                    <td style="overflow: auto;width: 10%">https://corona</td>
+                    <td style="overflow: auto;width: 10%">28/3/2020</td>
+                    <td style="overflow: auto;width: 10%">AAA</td>
+                    <td style="overflow: auto;width: 35%">what is is is  is is is is is</td>
+                    <td style="overflow: auto;width: 10%">
+                        <a class="add" title="Add" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Add</div></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Edit</div></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><div class="btn btn-danger" style="font-size: 12px;">Delete</div></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="overflow: auto;width: 5%">1</td>
+                    <td style="overflow: auto;width: 10%">Eleven</td>
+                    <td style="overflow: auto;width: 10%">Corona</td>
+                    <td style="overflow: auto;width: 10%">https://corona</td>
+                    <td style="overflow: auto;width: 10%">28/3/2020</td>
+                    <td style="overflow: auto;width: 10%">AAA</td>
+                    <td style="overflow: auto;width: 35%">what is is is  is is is is is</td>
+                    <td style="overflow: auto;width: 10%">
+                        <a class="add" title="Add" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Add</div></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Edit</div></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><div class="btn btn-danger" style="font-size: 12px;">Delete</div></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="overflow: auto;width: 5%">1</td>
+                    <td style="overflow: auto;width: 10%">Eleven</td>
+                    <td style="overflow: auto;width: 10%">Corona</td>
+                    <td style="overflow: auto;width: 10%">https://corona</td>
+                    <td style="overflow: auto;width: 10%">28/3/2020</td>
+                    <td style="overflow: auto;width: 10%">AAA</td>
+                    <td style="overflow: auto;width: 35%">what is is is  is is is is is</td>
+                    <td style="overflow: auto;width: 10%">
+                        <a class="add" title="Add" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Add</div></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><div class="btn btn-warning" style="font-size: 12px;">Edit</div></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><div class="btn btn-danger" style="font-size: 12px;">Delete</div></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+            <button type="button" class="btn btn-info add-new addnew"> Add New<div class="addicon"><i class="material-icons">add_circle_outline</i></div></button>
+    </section>
+
+
+    <div class="card">
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">person</i></div>
+            <div class="attr">Dr. Myo Thant</div>
+        </div>
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">phone</i></div>
+            <div class="attr">+959694457325</div>
+        </div>
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">home</i></div>
+            <div class="attr">No. 125, Shwe Oo Si Road, Pazundaung</div>
+        </div>
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">place</i></div>
+            <div class="attr">YGN</div>
+        </div>
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">work</i></div>
+            <div class="attr">Hospital</div>
+        </div>
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">label</i></div>
+            <div class="attr">Available</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">person</i></div>
+            <div class="attr">Dr. Yu Yu Maw</div>
+        </div>
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">phone</i></div>
+            <div class="attr">+959694457325</div>
+        </div>
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">home</i></div>
+            <div class="attr">No. 23, Gandamar Road, Kyi Myint Daing</div>
+        </div>
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">place</i></div>
+            <div class="attr">YGN</div>
+        </div>
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">work</i></div>
+            <div class="attr">Hospital</div>
+        </div>
+        <div class="be_flex">
+            <div class="icon"><i class="material-icons">label</i></div>
+            <div class="attr">Unvailable</div>
+        </div>
+    </div>
+
+    <a href="#"><div class="circle blue"><i class="material-icons addicon">add</i></div></a>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+    function openNav() {
+        document.getElementById("myNav").style.width = "100%";
+    }
+
+    function closeNav() {
+        document.getElementById("myNav").style.width = "0%";
+    }
+</script>
+
+<script>
+    // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
+    $(window).on("load resize ", function() {
+        var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+        $('.tbl-header').css({'padding-right':scrollWidth});
+    }).resize();
+</script>
+
+<!--table add/edit/delete script-->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+        var actions = $("table td:last-child").html();
+        // Append table with add row form on add new button click
+        $(".add-new").click(function(){
+            $(this).attr("disabled", "disabled");
+            var index = $("table tbody tr:last-child").index();
+            var row = '<tr>' +
+                '<td><input type="text" class="form-control" name="id" id="id"></td>' +
+                '<td><input type="text" class="form-control" name="source" id="source"></td>' +
+                '<td><input type="text" class="form-control" name="title" id="title"></td>' +
+                '<td><input type="text" class="form-control" name="url" id="url"></td>' +
+                '<td><input type="text" class="form-control" name="date" id="date"></td>' +
+                '<td><input type="text" class="form-control" name="upBy" id="upBy"></td>' +
+                '<td><input type="text" class="form-control" name="status" id="status"></td>' +
+                '<td>' + actions + '</td>' +
+                '</tr>';
+            $("table tbody").append(row);
+            $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        // Add row on add button click
+        $(document).on("click", ".add", function(){
+            var empty = false;
+            var input = $(this).parents("tr").find('input[type="text"]');
+            input.each(function(){
+                if(!$(this).val()){
+                    $(this).addClass("error");
+                    empty = true;
+                } else{
+                    $(this).removeClass("error");
+                }
+            });
+            $(this).parents("tr").find(".error").first().focus();
+            if(!empty){
+                input.each(function(){
+                    $(this).parent("td").html($(this).val());
+                });
+                $(this).parents("tr").find(".add, .edit").toggle();
+                $(".add-new").removeAttr("disabled");
+            }
+        });
+        // Edit row on edit button click
+        $(document).on("click", ".edit", function(){
+            $(this).parents("tr").find("td:not(:last-child)").each(function(){
+                $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+            });
+            $(this).parents("tr").find(".add, .edit").toggle();
+            $(".add-new").attr("disabled", "disabled");
+        });
+        // Delete row on delete button click
+        $(document).on("click", ".delete", function(){
+            $(this).parents("tr").remove();
+            $(".add-new").removeAttr("disabled");
+        });
+    });
+</script>
+
+</body>
+</html>
