@@ -1,8 +1,8 @@
 var express = require('express');
-var router = express.Router(); //express router to use the routing
+var router = express.Router();
 var Contact = require('../models/contact.model');
 
-module.exports = router; //exporting router
+module.exports = router;
 
 router.get('/list', async (req, res) => 
 {
@@ -52,12 +52,6 @@ router.get('/list/:state/', async (req, res) => {
 
 })
 
-// // Get one contact
-// router.get('/name/:name', getContact, (req, res) => {
-//   res.json(res.contact)
-// })
-
-// Create one contact
 router.post('/',getContact, async (req, res, next ) => {
       if( contact == null) {
         var contact = new Contact({

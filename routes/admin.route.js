@@ -1,14 +1,13 @@
 var express = require('express');
 var jwt = require('jsonwebtoken');
-var router = express.Router(); //express router to use the routing
+var router = express.Router();
 var Admin = require('../models/admin.model');
 var crypto = require('crypto');
-require('dotenv').config() //dotenv library to use data from .env
+require('dotenv').config();
 
-module.exports = router; //exporting router
+module.exports = router;
 const expiration = 400000;
 
-// Get contacts from certain division and certain type
 router.get('/login',function(req,res)
 {
     res.render('login');
@@ -26,7 +25,6 @@ router.post('/login', async (req, res) =>
     if(req.cookies.token != null)
     {
         token = req.cookies.token;
-        console.log("Token");
     }
     if(token != null) {
         jwt.verify(token,process.env.KEY,(err,ele)=>{
@@ -43,19 +41,24 @@ router.post('/login', async (req, res) =>
                 "email": email,
                 "password": hashedPassword
             });
-            token = jwt.sign({
-                email,
-                password
-            }, process.env.KEY, {
-                expiresIn: '1d',
-            });
-            console.log("alotelotelar");
-            
-            res.status(200).cookie('token', token, {
-                expires: new Date(Date.now() + expiration),
-                secure: false, // set to true if your using https
-                httpOnly: true,
-            }).render('admin');
+            if(admin.length!=0)
+            {
+                token = jwt.sign({
+                    email,
+                    password
+                }, process.env.KEY, {
+                    expiresIn: '1d',
+                });
+                res.status(200).cookie('token', token, {
+                    expires: new Date(Date.now() + expiration),
+                    secure: false,
+                    httpOnly: true,
+                }).render('admin');
+            }
+            else
+            {
+                res.render('login');
+            }
         } catch (err) {
             res.render('login');
         }
@@ -85,7 +88,7 @@ router.post('/register', async (req, res) => {
                 });
                 res.status(200).cookie('token', token, {
                     expires: new Date(Date.now() + expiration),
-                    secure: false, // set to true if your using https
+                    secure: false,
                     httpOnly: true,
                 }).render('admin');
             } catch (err) {
