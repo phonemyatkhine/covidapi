@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
       location: "-",
       stateDivision: "YGN",
       contactType: "hospital",
+      uploadBy: 1
     })
     try {
       await contact.save()
@@ -32,6 +33,7 @@ router.get('/', async (req, res) => {
       location: "-",
       stateDivision: "MDY",
       contactType: "hospital",
+      uploadBy: 1
     })
     try {
       await contact.save()
@@ -47,6 +49,7 @@ router.get('/', async (req, res) => {
       location: "-",
       stateDivision: "YGN",
       contactType: "social services",
+      uploadBy: 1
     })
     try {
       await contact.save()
@@ -61,6 +64,7 @@ router.get('/', async (req, res) => {
       location: "-",
       stateDivision: "MDY",
       contactType: "social services",
+      uploadBy: 1
     })
     try {
       await contact.save()

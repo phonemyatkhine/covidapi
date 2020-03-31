@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Record</title>
-</head>
-<body>
-    <form action="http://localhost:3000/contact" method="post">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name">
-        <br>
-        <label for="phoneNumber">Ph</label>
-        <input type="tel" name="phoneNumber" id="phoneNumber">
-        <br>
-        <label for="location">Location</label>
-        <input type="text" name="location" id="location">
-        <br>
-        <label for="stateDivision">State/Division</label>
-        <br>
-        <label for="YGN">YGN</label>
-        <input type="radio" name="stateDivision" id="YGN" value="YGN">
-        <label for="YGN">MDY</label>
-        <input type="radio" name="stateDivision" id="YGN" value="YGN">
-        <br>
-        <label for="contactType">Contact Type</label>
-        <br>
-        <label for="hospital">Hospital</label>
-        <input type="radio" name="contactType" id="hospital" value="hospital">
-        <label for="socialService">Social Service</label>
-        <input type="radio" name="contactType" id="socialService" value="social services">
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>New Record</title>
+	</head>
+	<body>
+        <form action="http://localhost:3000/contact" method="post">
+			<label for="name">Name</label>
+			<input type="text" name="name" id="name" />
+			<br />
+			<label for="phoneNumber">Ph</label>
+			<input type="tel" name="phoneNumber" id="phoneNumber" />
+			<br />
+			<label for="location">Location</label>
+			<input type="text" name="location" id="location" />
+			<br />
+			<label for="stateDivision">State/Division</label>
+			<br />
+			<label for="YGN">YGN</label>
+			<input type="radio" name="stateDivision" id="YGN" value="YGN" />
+			<label for="YGN">MDY</label>
+			<input type="radio" name="stateDivision" id="YGN" value="YGN" />
+			<br />
+			<label for="contactType">Contact Type</label>
+			<br />
+			<label for="hospital">Hospital</label>
+			<input
+				type="radio"
+				name="contactType"
+				id="hospital"
+				value="hospital"
+			/>
+			<label for="socialService">Social Service</label>
+			<input
+				type="radio"
+				name="contactType"
+				id="socialService"
+				value="social services"
+			/>
+			<br />
+			<button type="submit">Submit</button>
+		</form>
+	</body>
 </html>
