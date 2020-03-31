@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
 		if (redirect_url) {
 			res.redirect(redirect_url);
 		} else {
-			res.redirect("/admin");
+			res.redirect("/api/admin");
 		}
 	} else {
 		try {
@@ -151,7 +151,7 @@ router.post("/logout", async (req, res) => {
 		res.status(200)
 			.cookie("token", { expires: Date.now() })
 			.then(() => {
-				res.redirect("/admin/login");
+				res.redirect("/api/admin/login");
 			});
 	}
 });
@@ -164,7 +164,7 @@ router.get("/", function(req, res, next) {
 	if (token != null) {
 		jwt.verify(token, process.env.KEY, (err, ele) => {
 			if (err) {
-				res.redirect("/admin/login/r/admin/");
+				res.redirect("/api/admin/login/r/admin/");
 			}
 		});
 		Contact.find({}, (err, data) => {
@@ -174,7 +174,7 @@ router.get("/", function(req, res, next) {
 			res.render("admin", { contacts: data });
 		});
 	} else {
-		res.redirect("/admin/login/r/admin/");
+		res.redirect("/api/admin/login/r/admin/");
 	}
 });
 
@@ -206,12 +206,12 @@ router.get("/create-contact", (req, res) => {
 	if (token != null) {
 		jwt.verify(token, process.env.KEY, (err, ele) => {
 			if (err) {
-				res.redirect(`/admin/login/r/admin/create-contact`);
+				res.redirect(`/api/admin/login/r/admin/create-contact`);
 			}
 		});
 		res.render("forminput");
 	} else {
-		res.redirect(`/admin/login/r/admin/create-contact`);
+		res.redirect(`/api/admin/login/r/admin/create-contact`);
 	}
 });
 
@@ -223,7 +223,7 @@ router.get("/edit-contact/:name", (req, res) => {
 	if (token != null) {
 		jwt.verify(token, process.env.KEY, (err, ele) => {
 			if (err) {
-				res.redirect(`/admin/login/r/admin/edit-contact`);
+				res.redirect(`/api/admin/login/r/admin/edit-contact`);
 			}
 		});
 		Contact.findOne({ name: req.params.name }, (err, data) => {
@@ -234,6 +234,6 @@ router.get("/edit-contact/:name", (req, res) => {
 			res.render("editcontact", { contact: contact });
 		});
 	} else {
-		res.redirect(`/admin/login/r/admin/edit-contact`);
+		res.redirect(`/api/admin/login/r/admin/edit-contact`);
 	}
 })
