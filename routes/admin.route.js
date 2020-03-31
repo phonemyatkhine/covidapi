@@ -22,7 +22,7 @@ router.get(/\/login(\/r=(.*))?/, (req, res) => {
 
 router.post("/login", async (req, res) => {
 	let redirect_url = req.body.redirect_to;
-	const render_data = { redirect_to: undefined };
+	var render_data = { redirect_to: undefined };
 	if (redirect_url) {
 		render_data = { redirect_to: redirect_url };
 	}
@@ -214,3 +214,26 @@ router.get("/create-contact", (req, res) => {
 		res.redirect(`/admin/login/r/admin/create-contact`);
 	}
 });
+
+router.get("/edit-contact/:name", (req, res) => {
+	var token = null;
+	if (req.cookies.token != null) {
+		token = req.cookies.token;
+	}
+	if (token != null) {
+		jwt.verify(token, process.env.KEY, (err, ele) => {
+			if (err) {
+				res.redirect(`/admin/login/r/admin/edit-contact`);
+			}
+		});
+		Contact.findOne({ name: req.params.name }, (err, data) => {
+			if(err) {
+				console.log(err);
+			}
+			let contact = data;
+			res.render("editcontact", { contact: contact });
+		});
+	} else {
+		res.redirect(`/admin/login/r/admin/edit-contact`);
+	}
+})
