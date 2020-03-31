@@ -55,7 +55,7 @@ router.post("/login", async (req, res) => {
 				salt = admin.salt;
 				let input_pass = `${password}${salt}`;
 				let hashedPassword = crypto
-					.createHash("md5")
+					.createHash("sha1")
 					.update(input_pass)
 					.digest("hex");
 				if (hashedPassword == admin.password) {
