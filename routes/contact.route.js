@@ -76,8 +76,9 @@ router.post("/", getContact, async (req, res, next) => {
 });
 
 // Update one contact
-router.patch("/name/:name", getContact, async (req, res) => {
+router.post("/update/", getContact, async (req, res) => {
 	try {
+		let contact = res.contact;
 		contact.overwrite({
 			name: req.body.name,
 			phoneNumber: req.body.phoneNumber,
@@ -103,7 +104,7 @@ router.patch("/name/:name", getContact, async (req, res) => {
 });
 
 // Delete one subscriber
-router.delete("/name/:id", getContact, async (req, res) => {
+router.post("/delete", getContact, async (req, res) => {
 	try {
 		await res.contact.remove();
 		res.setHeader("Access-Control-Allow-Origin", "*");
