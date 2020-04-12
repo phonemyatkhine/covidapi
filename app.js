@@ -11,18 +11,16 @@ var app = express();
 var port = 3000;
 
 //connect mongoose to database
-mongoose.connect(process.env.DATABASE_URL, {
+mongoose.connect(process.env.DATABASE_URL_TESTING, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 });
 var db = mongoose.connection; //specify db is mongoose connection
 
 //routes
-var contact = require("./routes/contact.route");
-var dummyData = require("./routes/dummy.route");
-var views = require("./routes/view.route");
-var admin = require("./routes/admin.route");
-var news = require("./routes/news.route");
+var dummyData = require("./defaultRoutes/dummy.route");
+var admin = require("./defaultRoutes/admin.route");
+var generate = require("./index");
 
 app.engine("html", cons.swig);
 
@@ -35,10 +33,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/static", express.static(path.join(__dirname, "public")));
 
-app.use("/api/contact", contact);
+//app.use("/api/contacts", contact);
 app.use("/api/dummy", dummyData);
 app.use("/api/admin", admin);
-app.use("/api/news", news);
+//app.use("/api/news", news);
+app.use("/api/generate",generate);
 
 app.listen(port);
 console.log("Starting.....");

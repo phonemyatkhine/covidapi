@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>
+    Covid19MM Admin Dashboard
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="" onload="Starting()">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <div class="logo">
+        <a href="" class="simple-text logo-mini">
+          <div class="logo-image-small">
+            <img src="../assets/img/default-avatar.png">
+          </div>
+        </a>
+        <a href="" class="simple-text logo-normal" style="font-size: 25px; color: black; font-weight: 500;">
+          Admin
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li>
+            <a href="#">
+              <!--<i class="nc-icon nc-single-02"></i>-->
+              <div>
+                <p style="color: blue; font-weight: 530; font-size: 14px;">
+                  Add More
+                  <!--&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;-->
+                  <form action="/api/generate/" enctype="multipart/form-data" method="post">
+                    <input type="file" name="file-to-upload">
+                    <input type="submit" value="Upload">
+                  </form>
+                  <!--<span class="fa fa-plus-circle fa-fw" style="font-size:22px;"></span>-->
+                </p>
+              </div>
+            </a>
+          </li>
+          <hr>
+
+
+          <li class="active-pro">
+            <hr>
+            <form method="POST" action="http://localhost:3000/api/admin/logout">
+              <button type="submit" style="background: none;">
+                <p style="color: red; font-weight: 530; font-size: 14px;">
+                  Logout &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;
+                  <span class="fa fa-times-circle" style="font-size:22px;"></span>
+                </p>
+              </button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid" style="background-color: blue;">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" style="color: white;">Dashboard</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+            aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title"> Contacts Phone Number</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table" style="table-layout: auto; width: 100%;">
+                    <thead class=" text-primary" style="background-color: blue; text-align: center;" id="TableHead">
+                    </thead>
+                    <tbody id="TableBody">
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--- end table-->
+      <div style="margin-left: 50px; color: blue;">
+        <p><a href="#" style="color: blue;float: left;">Add more data &nbsp;
+            <span class="fa fa-plus-circle fa-fw" style="font-size:22px;"></span></a>
+        </p>
+        <p><a href="http://localhost:3000/api/generate/readfiles" style="color: blue;float: left;">Load Modules &nbsp;
+        </p>
+        <p><a href="http://localhost:3000/api/generate/loadModule" style="color: blue;float: left;">Load Modules &nbsp;
+        </p>
+        <p><a href="http://localhost:3000/api/generate/loadData" style="color: blue;float: left;">Load Data &nbsp;
+        </p>
+        <p><a href="http://localhost:3000/api/generate/CreateRoute" style="color: blue;float: left;">Create Routes
+            &nbsp;
+        </p>
+        <p><a href="http://localhost:3000/api/generate/loadRoute" style="color: blue;float: left;">Load Routes &nbsp;
+        </p>
+        <div style="float:right;margin-right: 5%;width: 5%;">
+          <p>
+            <a href="#" style="color: blue;float: left;">
+              <span class="fa fa-trash" style="font-size:30px;"></span>
+            </a>
+            <a href="#" style="color: blue;float: right;">
+              <span class="fa fa-edit" style="font-size:30px;"></span>
+            </a>
+          </p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Chart JS -->
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
+  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/demo/demo.js"></script>
+  <script>
+    var allNav = [];
+
+    function Starting() {
+      try {
+        var request = new XMLHttpRequest()
+        request.open('GET', 'http://localhost:3000/api/admin/collections', true)
+        request.onload = function () {
+          var ultag = document.getElementsByClassName("nav");
+          ultag = ultag[0];
+          console.log(ultag);
+          var data;
+          // Begin accessing JSON data here
+          try {
+            data = JSON.parse(this.response)
+          } catch (e) {
+            console.log("Json parse error");
+            window.location = "http://localhost:3000/static/coviddashB/html/login.html";
+          }
+          var apiloader = true;
+
+          if (request.status >= 200 && request.status < 400) {
+            data.forEach(ele => {
+              console.log(ele)
+              allNav.push(ele);
+              var textnode = document.createTextNode(ele);
+              var ptag = document.createElement("p");
+              ptag.style = "color: blue; font-weight: 530; font-size: 14px;";
+              var atag = document.createElement("a");
+              var litag = document.createElement("li");
+              if (apiloader) {
+                litag.id = ele;
+                litag.onload = TableLoader(ele);
+                litag.onload = function () { TableLoader(ele) };
+                litag.onclick = function () { TableLoader(ele) };
+                apiloader = false;
+              }
+              else {
+                litag.id = ele;
+                litag.onclick = function () { TableLoader(ele) };
+              }
+              ptag.appendChild(textnode);
+              atag.appendChild(ptag);
+              litag.appendChild(atag);
+              ultag.appendChild(litag);
+            })
+          } else {
+            console.log('error')
+          }
+        }
+
+        request.send()
+      } catch (e) {
+        console.log("error");
+        console.log(e);
+      }
+    }
+
+    function TableLoader(ele) {
+      Thead = document.getElementById("TableHead");
+      Tbody = document.getElementById("TableBody");
+      console.log("Table");
+      console.log(ele);
+      var request = new XMLHttpRequest()
+      request.open('GET', 'http://localhost:3000/api/generate/api/' + ele, true)
+      request.onload = function () {
+        var data;
+        data = JSON.parse(this.response)
+        if (request.status >= 200 && request.status < 400) {
+          var obj = data[0];
+          for (var p in obj) {
+            if (obj.hasOwnProperty(p)) {
+              
+              console.log(p);
+              console.log(obj[p]);
+              if (p != "_id" && p != "__v") {
+                console.log("Appending");
+                var Th = document.createElement("th");
+                Th.style = "color:white;";
+                Th.innerHTML = p;
+                Thead.appendChild(Th);
+              }
+              else if(p == "_id")
+              {
+                var Th = document.createElement("th");
+                Th.style = "color:white;";
+                Thead.appendChild(Th);
+              }
+            }
+          }
+
+          data.forEach(element => {
+            var obj = element;
+            var Tr = document.createElement("tr");
+            Tr.style = "text-align: center;";
+            for(var p in obj)
+            {
+              if(obj.hasOwnProperty(p))
+              {
+                if(p!= "_id" && p!="__v")
+                {
+                  var Td = document.createElement("td");
+                  Td.innerHTML = obj[p];
+                  Tr.appendChild(Td);
+                }
+                else if(p=="_id")
+                {
+                  var Td = document.createElement("td");
+                  var In = document.createElement("input");
+                  In.type = "radio";
+                  In.name = p;
+                  In.value = obj[p];
+                  Td.appendChild(In);
+                  Tr.id = obj[p];
+                  Tr.appendChild(Td);
+                }
+              }
+            }
+            Tbody.appendChild(Tr);
+          });
+
+        } else {
+          console.log('error')
+        }
+      }
+
+      request.send()
+    }
+
+    
+
+    function clicker(params) {
+      console.log(params);
+      console.log("Clicker");
+
+    }
+  </script>
+</body>
+
+</html>
