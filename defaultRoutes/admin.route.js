@@ -38,7 +38,6 @@ router.get('/collections', Checker, function (req, res) {
 	}, function (err, db) {
 		var db1 = db.db('covidapi');
 		db1.listCollections().toArray(function (err, items) {
-			console.log(items);
 			items.forEach(element => {
 				if (element.name != "admin") {
 					Redata.push(element.name);

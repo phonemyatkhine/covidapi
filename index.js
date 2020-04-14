@@ -49,9 +49,7 @@ app.get('/readfiles', async function (req, res) {
 
   await fs.readdir(__dirname + '/uploads', function (error, files) {
     var totalFiles = files.length;
-    console.log(totalFiles);
     files.forEach(async element => {
-      console.log(element);
       await chooseFileType(element);
     });
   });
@@ -64,11 +62,9 @@ app.get('/loadModule', async function (req, res) {
   moudlesName = [];
   await fs.readdir(__dirname + '/models', function (error, files) {
     var totalFiles = files.length;
-    console.log(totalFiles);
     for (let i = 0; i < totalFiles; i++) {
       const element = files[i];
       var name = element.slice(0, -3);
-      console.log(element);
       moudlesName.push(name);
       modules.push(require(__dirname + "/models/" + element));
     }
@@ -85,9 +81,7 @@ app.get('/loadData', function (req, res) {
 
   fs.readdir(__dirname + '/uploads', async function (error, files) {
     var totalFiles = files.length;
-    console.log(totalFiles);
     await files.forEach(element => {
-      console.log(element);
       chooseFileTypeData(element);
     });
     res.redirect('/api/admin');
@@ -99,9 +93,7 @@ app.get('/CreateRoute', async function (req, res) {
 
   await fs.readdir(__dirname + '/uploads', function (error, files) {
     var totalFiles = files.length;
-    console.log(totalFiles);
     files.forEach(element => {
-      console.log(element);
       chooseFileTypeRoute(element);
     });
   });
@@ -114,11 +106,9 @@ app.get('/loadRoute', async function (req, res) {
   routeModulesName = [];
   await fs.readdir(__dirname + '/routes', function (error, files) {
     var totalFiles = files.length;
-    console.log(totalFiles);
     for (let i = 0; i < totalFiles; i++) {
       const element = files[i];
       var name = element.slice(0, -3);
-      console.log(element);
       routeModulesName.push(name);
       routeModules.push(require(__dirname + "/routes/" + element));
       name = element.slice(0, -9);
@@ -173,11 +163,9 @@ async function chooseFileType(filename) {
   var csv = ".csv";
   var xlsx = ".xlsx";
   if (filename.includes(csv)) {
-    console.log("CSV");
     Data = await CSVreader(filename);
   }
   else if (filename.includes(xlsx)) {
-    console.log("Xlsx");
     Data = await Xlsxreader(filename);
   }
 }
@@ -187,11 +175,9 @@ async function chooseFileTypeData(filename) {
   var csv = ".csv";
   var xlsx = ".xlsx";
   if (filename.includes(csv)) {
-    console.log("CSV");
     Data = await CSVDatareader(filename);
   }
   else if (filename.includes(xlsx)) {
-    console.log("Xlsx");
     Data = await XlsxDatareader(filename);
   }
 }
@@ -201,11 +187,9 @@ async function chooseFileTypeRoute(filename) {
   var csv = ".csv";
   var xlsx = ".xlsx";
   if (filename.includes(csv)) {
-    console.log("CSV");
     Data = await CSVRoutereader(filename);
   }
   else if (filename.includes(xlsx)) {
-    console.log("Xlsx");
     Data = await XlsxRoutereader(filename);
   }
 }
@@ -241,9 +225,7 @@ async function Xlsxreader(filename) {
   var workbook = xlsx.readFile(__dirname + "/uploads/" + filename)
   var sheet_name_list = workbook.SheetNames;
   sheet_name_list.forEach(element => {
-    console.log(element);
     Data = xlsx.utils.sheet_to_json(workbook.Sheets[element]);
-    console.log(Data[0]);
     var result = [];
     var type = [];
     var obj = Data[0];
@@ -456,9 +438,7 @@ async function XlsxRoutereader(filename) {
   var workbook = xlsx.readFile(__dirname + "/uploads/" + filename)
   var sheet_name_list = workbook.SheetNames;
   sheet_name_list.forEach(element => {
-    console.log(element);
     Data = xlsx.utils.sheet_to_json(workbook.Sheets[element]);
-    console.log(Data[0]);
     var result = [];
     var type = [];
     var obj = Data[0];

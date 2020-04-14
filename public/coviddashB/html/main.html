@@ -77,11 +77,12 @@
             <img src="../assets/img/default-avatar.png">
           </div>
         </a>
-        <a href="" class="simple-text logo-normal" style="font-size: 25px; color: black; font-weight: 500;" id="adminName">
+        <a href="" class="simple-text logo-normal" style="font-size: 25px; color: black; font-weight: 500;"
+          id="adminName">
           Admin
         </a>
       </div>
-      <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper" style="overflow:scroll">
         <ul class="nav">
           <li>
             <a href="#">
@@ -102,17 +103,8 @@
           <hr>
 
 
-          <li class="active-pro">
-            <hr>
-            <form method="POST" action="http://localhost:3000/api/admin/logout">
-              <button type="submit" style="background: none;">
-                <p style="color: red; font-weight: 530; font-size: 14px;">
-                  Logout &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;
-                  <span class="fa fa-times-circle" style="font-size:22px;"></span>
-                </p>
-              </button>
-            </form>
-          </li>
+          <!--<li class="active-pro">-->
+          
         </ul>
       </div>
     </div>
@@ -298,6 +290,9 @@
               litag.appendChild(atag);
               ultag.appendChild(litag);
             })
+            var litag = document.createElement("li");
+            litag.innerHTML = '<hr><form method="POST" action="http://localhost:3000/api/admin/logout"><button type="submit" style="background: none;"><p style="color: red; font-weight: 530; font-size: 14px;">Logout &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;<span class="fa fa-times-circle" style="font-size:22px;"></span></p></button></form>';
+            ultag.appendChild(litag);
           } else {
             console.log('error')
           }
