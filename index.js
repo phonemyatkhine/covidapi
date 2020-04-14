@@ -30,12 +30,12 @@ mongoose.connect(process.env.DATABASE_URL_TESTING, {
 var db = mongoose.connection;
 
 app.get('/', async function (req, res) {
-  res.json({load:"Load"});
+  res.json({ load: "Load" });
 });
 
 app.post('/', upload, (req, res) => {
   console.log("Uploading");
-  
+
   upload(req, res, function (err) {
     if (err) {
       return res.end("Error uploading file.");
@@ -46,7 +46,7 @@ app.post('/', upload, (req, res) => {
 
 app.get('/readfiles', async function (req, res) {
   console.log("Read files");
-  
+
   await fs.readdir(__dirname + '/uploads', function (error, files) {
     var totalFiles = files.length;
     console.log(totalFiles);
@@ -95,7 +95,7 @@ app.get('/loadData', function (req, res) {
 
 app.get('/CreateRoute', async function (req, res) {
   console.log("Create routes");
-  
+
   await fs.readdir(__dirname + '/uploads', function (error, files) {
     var totalFiles = files.length;
     console.log(totalFiles);
@@ -107,10 +107,9 @@ app.get('/CreateRoute', async function (req, res) {
   res.redirect('/api/admin');
 });
 
-app.get('/loadRoute', async function (req, res) 
-{
+app.get('/loadRoute', async function (req, res) {
   console.log("Load routes");
-  
+
   await fs.readdir(__dirname + '/routes', function (error, files) {
     var totalFiles = files.length;
     console.log(totalFiles);
@@ -120,8 +119,8 @@ app.get('/loadRoute', async function (req, res)
       console.log(element);
       routeModulesName.push(name);
       routeModules.push(require(__dirname + "/routes/" + element));
-      name = element.slice(0,-9);
-      app.use("/api/"+name,routeModules[i]);
+      name = element.slice(0, -9);
+      app.use("/api/" + name, routeModules[i]);
     }
     console.log("Route Module Name");
     console.log(routeModulesName);
@@ -328,13 +327,13 @@ function CreatingRouteJs(filename, params) {
   writeStream.write("router.post(\"/:id\", Checker , async (req,res) => {\n");
   writeStream.write("if(Object.keys(req.body).length === 0){\n");
   writeStream.write("try{\n");
-  writeStream.write(filename+".remove({'_id':req.params.id},(err,result)=>{if(err){console.log(err);}});\n");
+  writeStream.write(filename + ".remove({'_id':req.params.id},(err,result)=>{if(err){console.log(err);}});\n");
   writeStream.write("} catch (e) {\n");
   writeStream.write("console.log(e);\n");
   writeStream.write("}\n");
   writeStream.write("}else{\n");
   writeStream.write("try{\n");
-  writeStream.write(filename+".updateOne({'_id':req.params.id},req.body,(err,result)=>{if(err){console.log(err);}});\n");
+  writeStream.write(filename + ".updateOne({'_id':req.params.id},req.body,(err,result)=>{if(err){console.log(err);}});\n");
   writeStream.write("} catch (e) {\n");
   writeStream.write("console.log(e);\n");
   writeStream.write("}\n");
@@ -372,14 +371,19 @@ async function CSVDatareader(filename) {
     Data.forEach(async element => {
       var index = moudlesName.indexOf(filename);
       var Uploadmodule = modules[index];
-      var Uploadvariable = new Uploadmodule(
-        element
-      );
-      try {
-        await Uploadvariable.save();
-      } catch (err) {
-        console.log(err);
-      }
+      Uploadmodule.findOne(element, function (err, result) {
+        if (result) {
+        } else {
+          var Uploadvariable = new Uploadmodule(
+            element
+          );
+          try {
+            await Uploadvariable.save();
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      });
     });
   });
 }
@@ -394,14 +398,19 @@ async function XlsxDatareader(filename) {
     Data.forEach(async ele => {
       var index = moudlesName.indexOf(element);
       var Uploadmodule = modules[index];
-      var Uploadvariable = new Uploadmodule(
-        ele
-      );
-      try {
-        await Uploadvariable.save();
-      } catch (err) {
-        console.log(err);
-      }
+      Uploadmodule.findOne(ele, function (err, result) {
+        if (result) {
+        } else {
+          var Uploadvariable = new Uploadmodule(
+            ele
+          );
+          try {
+            await Uploadvariable.save();
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      });
     });
   });
 }
