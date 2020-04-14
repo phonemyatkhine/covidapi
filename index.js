@@ -60,7 +60,8 @@ app.get('/readfiles', async function (req, res) {
 
 app.get('/loadModule', async function (req, res) {
   console.log("Load modules");
-
+  modules = [];
+  moudlesName = [];
   await fs.readdir(__dirname + '/models', function (error, files) {
     var totalFiles = files.length;
     console.log(totalFiles);
@@ -109,7 +110,8 @@ app.get('/CreateRoute', async function (req, res) {
 
 app.get('/loadRoute', async function (req, res) {
   console.log("Load routes");
-
+  routeModules = [];
+  routeModulesName = [];
   await fs.readdir(__dirname + '/routes', function (error, files) {
     var totalFiles = files.length;
     console.log(totalFiles);
@@ -223,6 +225,8 @@ async function CSVreader(filename) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
         var P = p.split(" ").join("");
+        p=P;
+        P = p.split("-").join("");
         result.push(P);
       }
     }
@@ -247,6 +251,8 @@ async function Xlsxreader(filename) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
         var P = p.split(" ").join("");
+        p=P;
+        P = p.split("-").join("");
         result.push(P);
       }
     }
@@ -258,6 +264,7 @@ async function Xlsxreader(filename) {
 
 function CreatingModelJs(filename, params, paramsType) {
   filename = filename.split(" ").join("");
+  filename = filename.split("-").join("");
   var writeStream = fs.createWriteStream("./models/" + filename + ".js");
   writeStream.write("const mongoose = require(\"mongoose\");\n");
   writeStream.write("const " + filename + "Schema = new mongoose.Schema({\n");
@@ -275,6 +282,7 @@ function CreatingModelJs(filename, params, paramsType) {
 
 function CreatingModelJsNoParamType(filename, params) {
   filename = filename.split(" ").join("");
+  filename = filename.split("-").join("");
   var writeStream = fs.createWriteStream("./models/" + filename + ".js");
   writeStream.write("const mongoose = require(\"mongoose\");\n");
   writeStream.write("const " + filename + "Schema = new mongoose.Schema({\n");
@@ -292,6 +300,7 @@ function CreatingModelJsNoParamType(filename, params) {
 
 function CreatingRouteJs(filename, params) {
   filename = filename.split(" ").join("");
+  filename = filename.split("-").join("");
   var writeStream = fs.createWriteStream("./routes/" + filename + ".route.js");
 
   writeStream.write("var express = require(\"express\");\n");
@@ -366,12 +375,13 @@ async function CSVDatareader(filename) {
       return
     }
     filename = filename.split(" ").join("");
+    filename = filename.split("-").join("");
     filename = filename.slice(0, -4);
     Data = await neatCsv(data);
     Data.forEach(async element => {
       var index = moudlesName.indexOf(filename);
       var Uploadmodule = modules[index];
-      Uploadmodule.findOne(element, function (err, result) {
+      Uploadmodule.findOne(element,async function (err, result) {
         if (result) {
         } else {
           var Uploadvariable = new Uploadmodule(
@@ -395,10 +405,11 @@ async function XlsxDatareader(filename) {
   sheet_name_list.forEach(element => {
     Data = xlsx.utils.sheet_to_json(workbook.Sheets[element]);
     element = element.split(" ").join("");
+    element = element.split("-").join("");
     Data.forEach(async ele => {
       var index = moudlesName.indexOf(element);
       var Uploadmodule = modules[index];
-      Uploadmodule.findOne(ele, function (err, result) {
+      Uploadmodule.findOne(ele, async function (err, result) {
         if (result) {
         } else {
           var Uploadvariable = new Uploadmodule(
@@ -430,6 +441,8 @@ async function CSVRoutereader(filename) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
         var P = p.split(" ").join("");
+        p=P;
+        P = p.split("-").join("");
         result.push(P);
       }
     }
@@ -453,6 +466,8 @@ async function XlsxRoutereader(filename) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
         var P = p.split(" ").join("");
+        p=P;
+        P = p.split("-").join("");
         result.push(P);
       }
     }

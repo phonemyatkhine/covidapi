@@ -310,8 +310,13 @@
 
     function TableLoader(ele) {
       currentNav = ele;
+      Ttitle = document.getElementsByClassName("card-title");
+      Ttitle = Ttitle[0];
+      Ttitle.innerHTML = ele;
       Thead = document.getElementById("TableHead");
       Tbody = document.getElementById("TableBody");
+      Thead.innerHTML = "";
+      Tbody.innerHTML = "";
       console.log("Table");
       console.log(ele);
       var request = new XMLHttpRequest()
@@ -322,6 +327,9 @@
         if (request.status >= 200 && request.status < 400) {
           var obj = data[0];
           TheObj = obj;
+          console.log("The Object")
+          console.log(TheObj);
+          
           for (var p in obj) {
             if (obj.hasOwnProperty(p)) {
 
