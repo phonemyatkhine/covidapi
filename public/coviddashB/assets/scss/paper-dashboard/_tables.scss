@@ -160,8 +160,10 @@
 }
 
 .table-responsive{
-  overflow: scroll;
+  overflow: auto;
   padding-bottom: 10px;
+  max-height: 360px;
+  
 }
 
 #tables .table-responsive{

@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var jwt = require("jsonwebtoken");
 var diabetes = require("../models/diabetes.js");
-module.exports = router;
+var Checker = require("../defaultFunctions/TokenChecker");module.exports = router;
 router.get("/", async (req, res) => {
 try {
 var upload = await diabetes.find({});
@@ -13,6 +13,32 @@ res.status(500).json({
 message: err.message
 });
 }
+});
+router.post("/", Checker ,async (req, res) => {
+try {
+var upload = new diabetes(req.body);
+await upload.save();
+res.redirect("http://localhost:3000/static/coviddashB/html/main.html");
+} catch (e) {
+console.log(e);
+res.redirect("http://localhost:3000/static/coviddashB/html/main.html");
+}
+});
+router.post("/:id", Checker , async (req,res) => {
+if(Object.keys(req.body).length === 0){
+try{
+diabetes.remove({'_id':req.params.id},(err,result)=>{if(err){console.log(err);}});
+} catch (e) {
+console.log(e);
+}
+}else{
+try{
+diabetes.updateOne({'_id':req.params.id},req.body,(err,result)=>{if(err){console.log(err);}});
+} catch (e) {
+console.log(e);
+}
+}
+res.redirect("http://localhost:3000/static/coviddashB/html/main.html");
 });
 router.get("/Pregnancies/:value/", async (req, res) => {
 let Pregnancies = req.params.value;

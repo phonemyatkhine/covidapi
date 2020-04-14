@@ -299,6 +299,7 @@ function CreatingRouteJs(filename, params) {
   writeStream.write("var router = express.Router();\n");
   writeStream.write("var jwt = require(\"jsonwebtoken\");\n");
   writeStream.write("var " + filename + " = require(\"../models/" + filename + ".js\");\n");
+  writeStream.write("var Checker = require(\"../defaultFunctions/TokenChecker\");");
   writeStream.write("module.exports = router;\n");
 
   writeStream.write("router.get(\"/\", async (req, res) => {\n");
@@ -311,6 +312,34 @@ function CreatingRouteJs(filename, params) {
   writeStream.write("message: err.message\n");
   writeStream.write("});\n");
   writeStream.write("}\n");
+  writeStream.write("});\n");
+
+  writeStream.write("router.post(\"/\", Checker ,async (req, res) => {\n");
+  writeStream.write("try {\n");
+  writeStream.write("var upload = new " + filename + "(req.body);\n");
+  writeStream.write("await upload.save();\n");
+  writeStream.write("res.redirect(\"http://localhost:3000/static/coviddashB/html/main.html\");\n");
+  writeStream.write("} catch (e) {\n");
+  writeStream.write("console.log(e);\n");
+  writeStream.write("res.redirect(\"http://localhost:3000/static/coviddashB/html/main.html\");\n");
+  writeStream.write("}\n");
+  writeStream.write("});\n");
+
+  writeStream.write("router.post(\"/:id\", Checker , async (req,res) => {\n");
+  writeStream.write("if(Object.keys(req.body).length === 0){\n");
+  writeStream.write("try{\n");
+  writeStream.write(filename+".remove({'_id':req.params.id},(err,result)=>{if(err){console.log(err);}});\n");
+  writeStream.write("} catch (e) {\n");
+  writeStream.write("console.log(e);\n");
+  writeStream.write("}\n");
+  writeStream.write("}else{\n");
+  writeStream.write("try{\n");
+  writeStream.write(filename+".updateOne({'_id':req.params.id},req.body,(err,result)=>{if(err){console.log(err);}});\n");
+  writeStream.write("} catch (e) {\n");
+  writeStream.write("console.log(e);\n");
+  writeStream.write("}\n");
+  writeStream.write("}\n");
+  writeStream.write("res.redirect(\"http://localhost:3000/static/coviddashB/html/main.html\");\n");
   writeStream.write("});\n");
 
   for (let i = 0; i < params.length; i++) {
