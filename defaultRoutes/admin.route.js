@@ -9,7 +9,7 @@ var crypto = require("crypto");
 require("dotenv").config();
 
 module.exports = router;
-const expiration = 400000;
+const expiration = 4000000;
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -123,6 +123,7 @@ router.post("/login", async (req, res) => {
 							secure: false,
 							httpOnly: true
 						})
+						.cookie("acc",email)
 						.redirect("http://localhost:3000/static/coviddashB/html/main.html");
 				} else {
 					res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
@@ -181,6 +182,7 @@ router.post("/register", async (req, res) => {
 						secure: false,
 						httpOnly: true
 					})
+					.cookie("acc",email)
 					.redirect("http://localhost:3000/static/coviddashB/html/main.html");
 			} catch (err) {
 				res.status(200).json({

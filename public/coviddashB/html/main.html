@@ -77,7 +77,7 @@
             <img src="../assets/img/default-avatar.png">
           </div>
         </a>
-        <a href="" class="simple-text logo-normal" style="font-size: 25px; color: black; font-weight: 500;">
+        <a href="" class="simple-text logo-normal" style="font-size: 25px; color: black; font-weight: 500;" id="adminName">
           Admin
         </a>
       </div>
@@ -255,6 +255,8 @@
 
     function Starting() {
       try {
+        var admin = document.getElementById("adminName");
+        admin.innerHTML = getCookie("acc");
         var request = new XMLHttpRequest()
         request.open('GET', 'http://localhost:3000/api/admin/collections', true)
         request.onload = function () {
@@ -329,7 +331,7 @@
           TheObj = obj;
           console.log("The Object")
           console.log(TheObj);
-          
+
           for (var p in obj) {
             if (obj.hasOwnProperty(p)) {
 
@@ -513,7 +515,7 @@
         var count = 2;
         console.log(Tr);
         console.log(formNodes[count].placeholder);
-        console.log(formNodes[count+2]);
+        console.log(formNodes[count + 2]);
         var nodes = Tr.childNodes;
         var flag = false;
         nodes.forEach(element => {
@@ -521,7 +523,7 @@
           if (element.childElementCount == 0) {
             console.log("work");
             formNodes[count].value = element.innerHTML;
-            count+=2;
+            count += 2;
           }
         });
         document.getElementById('popUpdateDiv').style.display = 'block';
@@ -534,6 +536,22 @@
     function clicker(params) {
       console.log(params);
       selectedId = params.value;
+    }
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
     }
   </script>
 </body>
