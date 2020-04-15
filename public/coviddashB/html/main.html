@@ -9,6 +9,7 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+
   <!-- CSS Files -->
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="../assets/css/pop.css" rel="stylesheet" />
@@ -72,15 +73,18 @@
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
+
         <a href="" class="simple-text logo-mini">
           <div class="logo-image-small">
             <img src="../assets/img/default-avatar.png">
           </div>
         </a>
+
         <a href="" class="simple-text logo-normal" style="font-size: 25px; color: black; font-weight: 500;"
           id="adminName">
           Admin
         </a>
+
       </div>
       <div class="sidebar-wrapper" style="overflow:scroll">
         <ul class="nav">
@@ -101,13 +105,10 @@
             </a>
           </li>
           <hr>
-
-
-          <!--<li class="active-pro">-->
-          
         </ul>
       </div>
     </div>
+
     <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
@@ -138,13 +139,13 @@
               <div class="card-header">
                 <h4 class="card-title"> Contacts Phone Number</h4>
               </div>
+
               <div class="card-body">
                 <div class="table-responsive" style="height: 55vh;">
                   <table class="table" style="table-layout: auto; width: 100%;height:100px">
                     <thead class=" text-primary" style="background-color: blue; text-align: center;" id="TableHead">
                     </thead>
                     <tbody id="TableBody">
-
                     </tbody>
                   </table>
                 </div>
@@ -154,91 +155,99 @@
         </div>
       </div>
       <!--- end table-->
+
       <!-- The Modal -->
       <div id="popAddDiv" class="modal">
-        <!--<span onclick="document.getElementById('pop').style.display='none'" class="close"
-          title="Close Modal">&times;</span>-->
-
         <!-- Modal Content -->
         <form class="modal-content animate" id="popupAddForm" action="" method="POST">
           <div class="imgcontainer" id="popupAddHead">
           </div>
-
           <div class="container" id="popupAddBody">
           </div>
         </form>
       </div>
 
       <div id="popUpdateDiv" class="modal">
-        <!--<span onclick="document.getElementById('pop').style.display='none'" class="close"
-          title="Close Modal">&times;</span>-->
-
         <!-- Modal Content -->
         <form class="modal-content animate" id="popupUpdateForm" action="" method="POST">
           <div class="imgcontainer" id="popupUpdateHead">
           </div>
-
           <div class="container" id="popupUpdateBody">
           </div>
         </form>
       </div>
 
       <div id="popDeleteDiv" class="modal">
-        <!--<span onclick="document.getElementById('pop').style.display='none'" class="close"
-          title="Close Modal">&times;</span>-->
-
         <!-- Modal Content -->
         <form class="modal-content animate" id="popupDeleteForm" action="" method="POST">
           <div class="imgcontainer" id="popupDeleteHead">
           </div>
-
           <div class="container" id="popupDeleteBody">
           </div>
         </form>
       </div>
 
       <div style="margin-left: 50px; color: blue;">
-        <p><a style="color: blue;float: left;" onclick="PopUpTheForm(this)" id="Add">Add more data &nbsp;
-            <span class="fa fa-plus-circle fa-fw" style="font-size:22px;"></span></a>
+
+        <p>
+          <a style="color: blue;float: left;" onclick="PopUpTheForm(this)" id="Add">Add more data &nbsp;
+            <span class="fa fa-plus-circle fa-fw" style="font-size:22px;"></span>
+          </a>
         </p>
-        <p><a href="http://localhost:3000/api/generate/readfiles" style="color: blue;float: left;">Read Files &nbsp;
+
+        <p>
+          <a href="http://localhost:3000/api/generate/readfiles" style="color: blue;float: left;">Read Files &nbsp;
         </p>
-        <p><a href="http://localhost:3000/api/generate/loadModule" style="color: blue;float: left;">Load Modules &nbsp;
+
+        <p>
+          <a href="http://localhost:3000/api/generate/loadModule" style="color: blue;float: left;">Load Modules &nbsp;
         </p>
-        <p><a href="http://localhost:3000/api/generate/loadData" style="color: blue;float: left;">Load Data &nbsp;
+
+        <p>
+          <a href="http://localhost:3000/api/generate/loadData" style="color: blue;float: left;">Load Data &nbsp;
         </p>
-        <p><a href="http://localhost:3000/api/generate/CreateRoute" style="color: blue;float: left;">Create Routes
-            &nbsp;
+
+        <p>
+          <a href="http://localhost:3000/api/generate/CreateRoute" style="color: blue;float: left;">Create Routes &nbsp;
         </p>
-        <p><a href="http://localhost:3000/api/generate/loadRoute" style="color: blue;float: left;">Load Routes &nbsp;
+
+        <p>
+          <a href="http://localhost:3000/api/generate/loadRoute" style="color: blue;float: left;">Load Routes &nbsp;
         </p>
+
         <div style="float:right;margin-right: 10%;width: 10%;">
           <p>
             <a style="color: blue;float: left;" onclick="PopUpTheForm(this)" id="Delete">
               <span class="fa fa-trash" style="font-size:30px;"></span>
             </a>
+
             <a style="color: blue;float: right;" onclick="PopUpTheForm(this)" id="Update">
               <span class="fa fa-edit" style="font-size:30px;"></span>
             </a>
           </p>
         </div>
       </div>
-
     </div>
   </div>
+
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
   <!-- Chart JS -->
   <script src="../assets/js/plugins/chartjs.min.js"></script>
+
   <!--  Notifications Plugin    -->
   <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
+
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+
   <script>
     var selectedId;
     var TheObj;
@@ -254,20 +263,15 @@
         request.onload = function () {
           var ultag = document.getElementsByClassName("nav");
           ultag = ultag[0];
-          console.log(ultag);
           var data;
-          // Begin accessing JSON data here
           try {
             data = JSON.parse(this.response)
           } catch (e) {
-            console.log("Json parse error");
             window.location = "http://localhost:3000/static/coviddashB/html/login.html";
           }
           var apiloader = true;
-
           if (request.status >= 200 && request.status < 400) {
             data.forEach(ele => {
-              console.log(ele)
               allNav.push(ele);
               var textnode = document.createTextNode(ele);
               var ptag = document.createElement("p");
@@ -297,7 +301,6 @@
             console.log('error')
           }
         }
-
         request.send()
       } catch (e) {
         console.log("error");
@@ -320,20 +323,17 @@
       request.open('GET', 'http://localhost:3000/api/generate/api/' + ele, true)
       request.onload = function () {
         var data;
-        data = JSON.parse(this.response)
+        try {
+          data = JSON.parse(this.response)
+        } catch (e) {
+          window.location = "http://localhost:3000/static/coviddashB/html/login.html";
+        }
         if (request.status >= 200 && request.status < 400) {
           var obj = data[0];
           TheObj = obj;
-          console.log("The Object")
-          console.log(TheObj);
-
           for (var p in obj) {
             if (obj.hasOwnProperty(p)) {
-
-              console.log(p);
-              console.log(obj[p]);
               if (p != "_id" && p != "__v") {
-                console.log("Appending");
                 var Th = document.createElement("th");
                 Th.style = "color:white;";
                 Th.innerHTML = p;
@@ -346,9 +346,7 @@
               }
             }
           }
-
           var makeChecked = true;
-
           data.forEach(element => {
             var obj = element;
             var Tr = document.createElement("tr");
@@ -385,7 +383,6 @@
           console.log('error')
         }
       }
-
       request.send()
     }
 
@@ -395,16 +392,12 @@
         var formheadAdd = document.getElementById("popupAddHead");
         var formheadUpdate = document.getElementById("popupUpdateHead");
         var formheadDelete = document.getElementById("popupDeleteHead");
-        console.log(formheadAdd);
-
-        console.table([formheadAdd, formheadUpdate, formheadDelete]);
         var formPopAdd = document.getElementById("popupAddForm");
         var formPopUpdate = document.getElementById("popupUpdateForm");
         var formPopDelete = document.getElementById("popupDeleteForm");
         formPopAdd.action = "/api/generate/api/" + currentNav;
         formPopUpdate.action = "/api/generate/api/" + currentNav + "/" + selectedId;
         formPopDelete.action = "/api/generate/api/" + currentNav + "/" + selectedId;
-
         var HAdd = document.createElement("h1");
         var HUpdate = document.createElement("h1");
         var HDelete = document.createElement("h1");
@@ -414,29 +407,22 @@
         formheadUpdate.appendChild(HUpdate);
         HDelete.innerHTML = "Delete";
         formheadDelete.appendChild(HDelete);
-
         var formbodyAdd = document.getElementById("popupAddBody");
         var formbodyUpdate = document.getElementById("popupUpdateBody");
         var formbodyDelete = document.getElementById("popupDeleteBody");
-        console.log(TheObj);
         for (var p in TheObj) {
           if (TheObj.hasOwnProperty(p)) {
             if (p != "_id" && p != "__v") {
-              console.log(p);
-
               var labeltagAdd = document.createElement("label");
               var btagAdd = document.createElement("b");
               var labeltagUpdate = document.createElement("label");
               var btagUpdate = document.createElement("b");
-
               btagAdd.innerHTML = p;
               labeltagAdd.appendChild(btagAdd);
               btagUpdate.innerHTML = p;
               labeltagUpdate.appendChild(btagUpdate);
-
               formbodyAdd.appendChild(labeltagAdd);
               formbodyUpdate.appendChild(labeltagUpdate);
-
               var inputtagAdd = document.createElement("input");
               inputtagAdd.type = "text";
               inputtagAdd.placeholder = "Enter " + p;
@@ -464,7 +450,6 @@
         ActionBtn.type = "submit";
         ActionBtn.innerHTML = "Delete";
         formbodyDelete.appendChild(ActionBtn);
-
         var CancelBtnAdd = document.createElement("button");
         CancelBtnAdd.className = "cancelbtn";
         CancelBtnAdd.innerHTML = "Cancel";
@@ -473,7 +458,6 @@
           document.getElementById('popAddDiv').style.display = 'none';
         }
         formbodyAdd.appendChild(CancelBtnAdd);
-
         var CancelBtnUpdate = document.createElement("button");
         CancelBtnUpdate.className = "cancelbtn";
         CancelBtnUpdate.innerHTML = "Cancel";
@@ -482,7 +466,6 @@
           document.getElementById('popUpdateDiv').style.display = 'none';
         }
         formbodyUpdate.appendChild(CancelBtnUpdate)
-
         var CancelBtnDelete = document.createElement("button");
         CancelBtnDelete.className = "cancelbtn";
         CancelBtnDelete.innerHTML = "Cancel";
@@ -491,12 +474,9 @@
           document.getElementById('popDeleteDiv').style.display = 'none';
         }
         formbodyDelete.appendChild(CancelBtnDelete);
-
       } catch (e) {
         console.log(e);
-
       }
-
     }
 
     function PopUpTheForm(params) {
@@ -508,15 +488,10 @@
         var formbodyUpdate = document.getElementById("popupUpdateBody");
         var formNodes = formbodyUpdate.childNodes;
         var count = 2;
-        console.log(Tr);
-        console.log(formNodes[count].placeholder);
-        console.log(formNodes[count + 2]);
         var nodes = Tr.childNodes;
         var flag = false;
         nodes.forEach(element => {
-          console.log(element.childElementCount);
           if (element.childElementCount == 0) {
-            console.log("work");
             formNodes[count].value = element.innerHTML;
             count += 2;
           }
@@ -549,6 +524,7 @@
       return "";
     }
   </script>
+
 </body>
 
 </html>

@@ -68,10 +68,6 @@ app.get('/loadModule', async function (req, res) {
       moudlesName.push(name);
       modules.push(require(__dirname + "/models/" + element));
     }
-    console.log("Module Name");
-    console.log(moudlesName);
-    console.log("Module");
-    console.log(modules);
   });
   res.redirect('/api/admin');
 });
@@ -114,10 +110,6 @@ app.get('/loadRoute', async function (req, res) {
       name = element.slice(0, -9);
       app.use("/api/" + name, routeModules[i]);
     }
-    console.log("Route Module Name");
-    console.log(routeModulesName);
-    console.log("Route Module");
-    console.log(routeModules);
   });
   res.redirect('/api/admin');
 });
