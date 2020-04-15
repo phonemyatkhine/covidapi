@@ -69,18 +69,18 @@ router.get("/login", function (req, res) {
 // 	res.render("login", render_data);
 // });
 router.post("/login", async (req, res) => {
-	console.log("Login calling")
 	let email = req.body.email;
 	let password = req.body.password;
-
+	console.log("Login calling " + email + " : " + password);
 	var token = null;
 
 	if (req.cookies.token != null) {
 		token = req.cookies.token;
-		console.log("Tokein found");
+		console.log("Tokein found " + token);
 	}
 
 	if (token) {
+
 		jwt.verify(token, process.env.KEY, (err, _nil) => {
 			if (err) {
 				console.log("verifying error");
@@ -88,6 +88,8 @@ router.post("/login", async (req, res) => {
 				res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
 			}
 			else {
+				console.log("work");
+
 				res.redirect("http://localhost:3000/static/coviddashB/html/main.html")
 			}
 		});
@@ -122,7 +124,7 @@ router.post("/login", async (req, res) => {
 							secure: false,
 							httpOnly: true
 						})
-						.cookie("acc",email)
+						.cookie("acc", email)
 						.redirect("http://localhost:3000/static/coviddashB/html/main.html");
 				} else {
 					res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
@@ -164,25 +166,27 @@ router.post("/register", async (req, res) => {
 				password: hashedPassword
 			});
 			try {
-				var newAdmin = await admin.save();
-				token = jwt.sign({
-					email,
-					password
-				},
-					process.env.KEY, {
-					expiresIn: "1d"
+				var newAdmin = await Admin.findOne({
+					email: email
+				});
+				if (newAdmin) {
+					res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
 				}
-				);
-
-
-				res.status(200)
-					.cookie("token", token, {
-						expires: new Date(Date.now() + expiration),
-						secure: false,
-						httpOnly: true
-					})
-					.cookie("acc",email)
+				else {
+					await admin.save();
+					token = jwt.sign(
+						{
+							email,
+							password
+						},
+						process.env.KEY, {
+						expiresIn: "1d"
+					});
+					res.status(200)
+					.cookie("token", token, { expires: new Date(Date.now() + expiration),secure: false,httpOnly: true})
+					.cookie("acc", email)
 					.redirect("http://localhost:3000/static/coviddashB/html/main.html");
+				}
 			} catch (err) {
 				res.status(200).json({
 					message: "Admin Account Created"

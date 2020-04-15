@@ -44,6 +44,8 @@ app.post('/', upload, (req, res) => {
   });
 });
 
+app.get('/reloadAll',ReadFiles,LoadModules,LoadData,CreateRoute,LoadRoutes);
+
 app.get('/readfiles', async function (req, res) {
   console.log("Read files");
 
@@ -55,6 +57,18 @@ app.get('/readfiles', async function (req, res) {
   });
   res.redirect('/api/admin');
 });
+
+async function ReadFiles(req,res,next) {
+  console.log("Read files");
+
+  await fs.readdir(__dirname + '/uploads', function (error, files) {
+    var totalFiles = files.length;
+    files.forEach(async element => {
+      await chooseFileType(element);
+    });
+    next();
+  });
+}
 
 app.get('/loadModule', async function (req, res) {
   console.log("Load modules");
@@ -72,6 +86,22 @@ app.get('/loadModule', async function (req, res) {
   res.redirect('/api/admin');
 });
 
+async function LoadModules (req,res,next) {
+  console.log("Load modules");
+  modules = [];
+  moudlesName = [];
+  await fs.readdir(__dirname + '/models', function (error, files) {
+    var totalFiles = files.length;
+    for (let i = 0; i < totalFiles; i++) {
+      const element = files[i];
+      var name = element.slice(0, -3);
+      moudlesName.push(name);
+      modules.push(require(__dirname + "/models/" + element));
+    }
+    next();
+  });
+}
+
 app.get('/loadData', function (req, res) {
   console.log("Load data");
 
@@ -84,6 +114,18 @@ app.get('/loadData', function (req, res) {
   });
 });
 
+async function LoadData (req,res,next) {
+  console.log("Load data");
+
+  fs.readdir(__dirname + '/uploads', async function (error, files) {
+    var totalFiles = files.length;
+    await files.forEach(element => {
+      chooseFileTypeData(element);
+    });
+    next();
+  });
+}
+
 app.get('/CreateRoute', async function (req, res) {
   console.log("Create routes");
 
@@ -95,6 +137,18 @@ app.get('/CreateRoute', async function (req, res) {
   });
   res.redirect('/api/admin');
 });
+
+async function CreateRoute (req,res,next) {
+  console.log("Create routes");
+
+  await fs.readdir(__dirname + '/uploads', function (error, files) {
+    var totalFiles = files.length;
+    files.forEach(element => {
+      chooseFileTypeRoute(element);
+    });
+    next();
+  });
+}
 
 app.get('/loadRoute', async function (req, res) {
   console.log("Load routes");
@@ -113,6 +167,24 @@ app.get('/loadRoute', async function (req, res) {
   });
   res.redirect('/api/admin');
 });
+
+async function LoadRoutes (req,res,next) {
+  console.log("Load routes");
+  routeModules = [];
+  routeModulesName = [];
+  await fs.readdir(__dirname + '/routes', function (error, files) {
+    var totalFiles = files.length;
+    for (let i = 0; i < totalFiles; i++) {
+      const element = files[i];
+      var name = element.slice(0, -3);
+      routeModulesName.push(name);
+      routeModules.push(require(__dirname + "/routes/" + element));
+      name = element.slice(0, -9);
+      app.use("/api/" + name, routeModules[i]);
+    }
+  });
+  res.redirect('/api/admin');
+}
 
 app.get('/testCSV', function (req, res) {
   var filename = "diabetes.csv";

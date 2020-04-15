@@ -215,6 +215,10 @@
           <a href="http://localhost:3000/api/generate/loadRoute" style="color: blue;float: left;">Load Routes &nbsp;
         </p>
 
+        <p>
+          <a href="http://localhost:3000/api/generate/reloadAll" style="color: blue;float: left;">Reload All &nbsp;
+        </p>
+
         <div style="float:right;margin-right: 10%;width: 10%;">
           <p>
             <a style="color: blue;float: left;" onclick="PopUpTheForm(this)" id="Delete">
@@ -326,7 +330,7 @@
         try {
           data = JSON.parse(this.response)
         } catch (e) {
-          window.location = "http://localhost:3000/static/coviddashB/html/login.html";
+          //window.location = "http://localhost:3000/static/coviddashB/html/login.html";
         }
         if (request.status >= 200 && request.status < 400) {
           var obj = data[0];
