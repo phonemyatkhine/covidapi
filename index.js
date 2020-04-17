@@ -425,10 +425,13 @@ async function CSVDatareader(filename) {
     filename = filename.slice(0, -4);
     Data = await neatCsv(data);
     Data.forEach(async element => {
+      console.log(element);
+      
       var index = moudlesName.indexOf(filename);
       var Uploadmodule = modules[index];
       Uploadmodule.findOne(element,async function (err, result) {
         if (result) {
+          console.log("Duplicate "+result);
         } else {
           var Uploadvariable = new Uploadmodule(
             element
@@ -452,11 +455,17 @@ async function XlsxDatareader(filename) {
     Data = xlsx.utils.sheet_to_json(workbook.Sheets[element]);
     element = element.split(" ").join("");
     element = element.split("-").join("");
+    console.log("Data Reading");
+    
     Data.forEach(async ele => {
+      console.log(ele);
+      
       var index = moudlesName.indexOf(element);
       var Uploadmodule = modules[index];
       Uploadmodule.findOne(ele, async function (err, result) {
         if (result) {
+          console.log("Duplicate "+result);
+          
         } else {
           var Uploadvariable = new Uploadmodule(
             ele
