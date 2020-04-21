@@ -140,6 +140,14 @@
                 <h4 class="card-title"> Contacts Phone Number</h4>
               </div>
 
+
+              <div id="search">
+                <button type="submit"
+                  style="width: 100px; float: right; margin-right: 20px; margin-top: 0; border-radius:6%;"
+                  onclick="PopUpTheForm(this)" id="Search">Search</button>
+
+              </div>
+
               <div class="card-body">
                 <div class="table-responsive" style="height: 55vh;">
                   <table class="table" style="table-layout: auto; width: 100%;height:100px">
@@ -157,6 +165,19 @@
       <!--- end table-->
 
       <!-- The Modal -->
+
+
+      <div id="popSearchDiv" class="modal">
+        <!-- Modal Content -->
+        <form class="modal-content animate" id="popupSearchForm" action="">
+          <div class="imgcontainer" id="popupSearchHead">
+          </div>
+          <div class="container" id="popupSearchBody">
+          </div>
+        </form>
+      </div>
+
+
       <div id="popAddDiv" class="modal">
         <!-- Modal Content -->
         <form class="modal-content animate" id="popupAddForm" action="" method="POST">
@@ -196,11 +217,15 @@
         </p>
 
         <p>
-          <a href="http://localhost:3000/api/generate/readfiles" style="color: blue;float: left;">Read Files &nbsp;
+          <a href="http://localhost:3000/api/generate/prepareData" style="color: blue;float: left;">Prepare Data &nbsp;
         </p>
 
         <p>
-          <a href="http://localhost:3000/api/generate/loadModule" style="color: blue;float: left;">Load Modules &nbsp;
+          <a href="http://localhost:3000/api/generate/createModels" style="color: blue;float: left;">Create Models &nbsp;
+        </p>
+
+        <p>
+          <a href="http://localhost:3000/api/generate/loadModules" style="color: blue;float: left;">Load Modules &nbsp;
         </p>
 
         <p>
@@ -208,15 +233,11 @@
         </p>
 
         <p>
-          <a href="http://localhost:3000/api/generate/CreateRoute" style="color: blue;float: left;">Create Routes &nbsp;
+          <a href="http://localhost:3000/api/generate/createRoutes" style="color: blue;float: left;">Create Routes &nbsp;
         </p>
 
         <p>
-          <a href="http://localhost:3000/api/generate/loadRoute" style="color: blue;float: left;">Load Routes &nbsp;
-        </p>
-
-        <p>
-          <a href="http://localhost:3000/api/generate/reloadAll" style="color: blue;float: left;">Reload All &nbsp;
+          <a href="http://localhost:3000/api/generate/loadRoutes" style="color: blue;float: left;">Load Routes &nbsp;
         </p>
 
         <div style="float:right;margin-right: 10%;width: 10%;">
@@ -257,23 +278,38 @@
     var TheObj;
     var allNav = [];
     var currentNav;
+    var count = 0;
+    var length = 0;
+    var aLength = 0;
+
+    var pSearchArr = [];
+    var dataArr = [];
+    var valueSearchArr = [];
+    var searchTableArr = [];
+    var idArr = [];
 
     function Starting() {
       try {
         var admin = document.getElementById("adminName");
         admin.innerHTML = getCookie("acc");
+
         var request = new XMLHttpRequest()
         request.open('GET', 'http://localhost:3000/api/admin/collections', true)
         request.onload = function () {
-          var ultag = document.getElementsByClassName("nav");
-          ultag = ultag[0];
-          var data;
+
           try {
             data = JSON.parse(this.response)
+            console.log(data)
           } catch (e) {
             window.location = "http://localhost:3000/static/coviddashB/html/login.html";
           }
+
           var apiloader = true;
+
+          var ultag = document.getElementsByClassName("nav");
+          ultag = ultag[0];
+          var data;
+          console.log("data " + data)
           if (request.status >= 200 && request.status < 400) {
             data.forEach(ele => {
               allNav.push(ele);
@@ -313,6 +349,11 @@
     }
 
     function TableLoader(ele) {
+      count = 0;
+      length = 0;
+      aLength = 0;
+      dataArr = [];
+      idArr = [];
       currentNav = ele;
       Ttitle = document.getElementsByClassName("card-title");
       Ttitle = Ttitle[0];
@@ -333,23 +374,32 @@
           //window.location = "http://localhost:3000/static/coviddashB/html/login.html";
         }
         if (request.status >= 200 && request.status < 400) {
+
           var obj = data[0];
           TheObj = obj;
+          pSearchArr = [];
           for (var p in obj) {
             if (obj.hasOwnProperty(p)) {
               if (p != "_id" && p != "__v") {
+
                 var Th = document.createElement("th");
                 Th.style = "color:white;";
                 Th.innerHTML = p;
                 Thead.appendChild(Th);
+
               }
               else if (p == "_id") {
                 var Th = document.createElement("th");
                 Th.style = "color:white;";
                 Thead.appendChild(Th);
               }
+
+              pSearchArr.push(p);
+              console.log("psearcharr" + pSearchArr)
+
             }
           }
+          idArr = [];
           var makeChecked = true;
           data.forEach(element => {
             var obj = element;
@@ -358,9 +408,13 @@
             for (var p in obj) {
               if (obj.hasOwnProperty(p)) {
                 if (p != "_id" && p != "__v") {
+
                   var Td = document.createElement("td");
                   Td.innerHTML = obj[p];
                   Tr.appendChild(Td);
+                  var caseChg = obj[p].toLowerCase();
+                  dataArr.push(caseChg);
+
                 }
                 else if (p == "_id") {
                   var Td = document.createElement("td");
@@ -368,11 +422,16 @@
                   In.type = "radio";
                   In.name = p;
                   In.value = obj[p];
+
+                  idArr.push(In.value);
+
                   In.onclick = function () { clicker(this) };
+
                   if (makeChecked) {
                     makeChecked = false;
                     In.checked = true;
                     selectedId = obj[p];
+
                   }
                   Td.appendChild(In);
                   Tr.id = obj[p];
@@ -381,8 +440,13 @@
               }
             }
             Tbody.appendChild(Tr);
+
+            count++;
+
           });
+
           PopUpCreation();
+
         } else {
           console.log('error')
         }
@@ -392,47 +456,91 @@
 
     function PopUpCreation() {
       try {
-        console.log("Add");
+        console.log("New Forms created");
+
+        var formheadSearch = document.getElementById("popupSearchHead");
         var formheadAdd = document.getElementById("popupAddHead");
         var formheadUpdate = document.getElementById("popupUpdateHead");
         var formheadDelete = document.getElementById("popupDeleteHead");
+
+        formheadSearch.innerHTML = "";
+        formheadAdd.innerHTML = "";
+        formheadUpdate.innerHTML = "";
+        formheadDelete.innerHTML = "";
+
+        var formPopSearch = document.getElementById("popupSearchForm");
         var formPopAdd = document.getElementById("popupAddForm");
         var formPopUpdate = document.getElementById("popupUpdateForm");
         var formPopDelete = document.getElementById("popupDeleteForm");
+
         formPopAdd.action = "/api/generate/api/" + currentNav;
         formPopUpdate.action = "/api/generate/api/" + currentNav + "/" + selectedId;
         formPopDelete.action = "/api/generate/api/" + currentNav + "/" + selectedId;
+
+        var HSearch = document.createElement("h1");
         var HAdd = document.createElement("h1");
         var HUpdate = document.createElement("h1");
         var HDelete = document.createElement("h1");
+
+        HSearch.innerHTML = "Search";
+        formheadSearch.appendChild(HSearch);
         HAdd.innerHTML = "Add";
         formheadAdd.appendChild(HAdd);
         HUpdate.innerHTML = "Update";
         formheadUpdate.appendChild(HUpdate);
         HDelete.innerHTML = "Delete";
         formheadDelete.appendChild(HDelete);
+
+        var formbodySearch = document.getElementById("popupSearchBody");
         var formbodyAdd = document.getElementById("popupAddBody");
         var formbodyUpdate = document.getElementById("popupUpdateBody");
         var formbodyDelete = document.getElementById("popupDeleteBody");
+
+        formbodySearch.innerHTML = "";
+        formbodyAdd.innerHTML = "";
+        formbodyUpdate.innerHTML = "";
+        formbodyDelete.innerHTML = "";
+
         for (var p in TheObj) {
           if (TheObj.hasOwnProperty(p)) {
             if (p != "_id" && p != "__v") {
+
+              var labeltagSearch = document.createElement("label");
+              var btagSearch = document.createElement("b");
+
               var labeltagAdd = document.createElement("label");
               var btagAdd = document.createElement("b");
               var labeltagUpdate = document.createElement("label");
               var btagUpdate = document.createElement("b");
+
+              btagSearch.innerHTML = p;
+              labeltagSearch.appendChild(btagSearch);
+
               btagAdd.innerHTML = p;
               labeltagAdd.appendChild(btagAdd);
               btagUpdate.innerHTML = p;
               labeltagUpdate.appendChild(btagUpdate);
+
+              formbodySearch.appendChild(labeltagSearch);
+
               formbodyAdd.appendChild(labeltagAdd);
               formbodyUpdate.appendChild(labeltagUpdate);
+
+              var inputtagSearch = document.createElement("input");
+
+              inputtagSearch.type = "text";
+              inputtagSearch.placeholder = "Enter " + p;
+              inputtagSearch.name = p;
+              inputtagSearch.setAttribute("id", `${p}`);
+              formbodySearch.appendChild(inputtagSearch);
+
               var inputtagAdd = document.createElement("input");
               inputtagAdd.type = "text";
               inputtagAdd.placeholder = "Enter " + p;
               inputtagAdd.name = p;
               inputtagAdd.required = true;
               formbodyAdd.appendChild(inputtagAdd);
+
               var inputtagUpdate = document.createElement("input");
               inputtagUpdate.type = "text";
               inputtagUpdate.placeholder = "Enter " + p;
@@ -442,26 +550,49 @@
             }
           }
         }
+
+        var ActionBtn = document.createElement("button");
+        ActionBtn.type = "button";
+        ActionBtn.innerHTML = "Search";
+        formbodySearch.appendChild(ActionBtn);
+        console.log("action button")
+
+        ActionBtn.setAttribute("id", "searchBtn");
+
         var ActionBtn = document.createElement("button");
         ActionBtn.type = "submit";
         ActionBtn.innerHTML = "Add";
         formbodyAdd.appendChild(ActionBtn);
+
         var ActionBtn = document.createElement("button");
         ActionBtn.type = "submit";
         ActionBtn.innerHTML = "Update";
         formbodyUpdate.appendChild(ActionBtn);
+
         var ActionBtn = document.createElement("button");
         ActionBtn.type = "submit";
         ActionBtn.innerHTML = "Delete";
         formbodyDelete.appendChild(ActionBtn);
+
+        var CancelBtnSearch = document.createElement("button");
+        CancelBtnSearch.className = "cancelbtn";
+        CancelBtnSearch.innerHTML = "Cancel";
+        CancelBtnSearch.type = "button";
+        CancelBtnSearch.onclick = function () {
+          document.getElementById('popSearchDiv').style.display = 'none';
+        }
+        formbodySearch.appendChild(CancelBtnSearch);
+
         var CancelBtnAdd = document.createElement("button");
         CancelBtnAdd.className = "cancelbtn";
         CancelBtnAdd.innerHTML = "Cancel";
         CancelBtnAdd.type = "button";
         CancelBtnAdd.onclick = function () {
+          console.log("Add cancel")
           document.getElementById('popAddDiv').style.display = 'none';
         }
         formbodyAdd.appendChild(CancelBtnAdd);
+
         var CancelBtnUpdate = document.createElement("button");
         CancelBtnUpdate.className = "cancelbtn";
         CancelBtnUpdate.innerHTML = "Cancel";
@@ -469,7 +600,8 @@
         CancelBtnUpdate.onclick = function () {
           document.getElementById('popUpdateDiv').style.display = 'none';
         }
-        formbodyUpdate.appendChild(CancelBtnUpdate)
+        formbodyUpdate.appendChild(CancelBtnUpdate);
+
         var CancelBtnDelete = document.createElement("button");
         CancelBtnDelete.className = "cancelbtn";
         CancelBtnDelete.innerHTML = "Cancel";
@@ -478,6 +610,7 @@
           document.getElementById('popDeleteDiv').style.display = 'none';
         }
         formbodyDelete.appendChild(CancelBtnDelete);
+
       } catch (e) {
         console.log(e);
       }
@@ -505,6 +638,35 @@
       if (params.id == "Delete") {
         document.getElementById('popDeleteDiv').style.display = 'block';
       }
+
+      if (params.id == "Search") {
+        document.getElementById('popSearchDiv').style.display = 'block';
+        console.log("search")
+
+
+        console.log("before search")
+        var searchBtn = document.getElementById("searchBtn");
+
+        searchBtn.addEventListener('click', () => {
+          document.getElementById('popSearchDiv').style.display = 'none';
+          console.log("P Search Test");
+          valueSearchArr = [];
+          for (i in pSearchArr) {
+
+            if (pSearchArr[i] != "_id" && pSearchArr[i] != "__v") {
+              console.log(pSearchArr[i]);
+
+              var pId = document.getElementById(pSearchArr[i]);
+              var value = pId.value;
+              var caseChg2 = value.toLowerCase();
+
+              valueSearchArr.push(caseChg2);
+            }
+          }
+
+          searchValue();
+        })
+      }
     }
 
     function clicker(params) {
@@ -527,6 +689,87 @@
       }
       return "";
     }
+
+    function searchValue() {
+
+      var length = dataArr.length;
+      var aLength = length / count;
+
+      console.log("length " + length)
+      console.log("alength " + aLength)
+      console.log("count " + count)
+
+      var mCount = 0;
+      var tCount = 0;
+
+      //blah
+      console.log("valuesearch arr " + valueSearchArr)
+      searchTableArr = [];
+      for (var i = 0; i < length; i++) {
+        mCount = 0;
+        tCount = 0;
+
+        for (var j = 0; j < aLength; j++) {
+          if (valueSearchArr[j] != "") {
+            mCount++;
+          }
+          if (valueSearchArr[j] == dataArr[j + (aLength * i)]) {
+            tCount++;
+          }
+        }
+
+        if (tCount == mCount) {
+
+          console.log(`tcount ${tCount}`)
+          console.log(`mcount ${mCount}`)
+
+
+          var trueRow = (j + (aLength * i)) / aLength;
+          Math.ceil(trueRow);
+
+          searchTableArr.push(i);
+        }
+
+      }
+      //blah
+      console.log("searchTableArr" + searchTableArr)
+
+      searchTableLoader();
+
+    }
+
+    function searchTableLoader() {
+      var sTableLength = searchTableArr.length;
+      var idArrLength = idArr.length;
+
+      for (var i = 0; i < sTableLength; i++) {
+
+        var index = searchTableArr[i];
+        idArr.splice(index - i, 1);
+      }
+
+      for (var j = 0; j < idArr.length; j++) {
+        var sTableDel = document.getElementById(idArr[j]);
+        sTableDel.innerHTML = "";
+
+      }
+
+      console.log("idarr" + idArr.length);
+      console.log("count " + count);
+
+      var tableBody = document.getElementById("TableBody");
+      // tableBody.innerHTML = "";
+      if (idArr.length == count) {
+        var tr = document.createElement("tr");
+
+        tr.innerHTML = `<td colspan = ${aLength}> No data matched </td>`;
+        tr.style = "text-align: center; color: red;";
+
+        tableBody.appendChild(tr);
+
+      }
+    }
+
   </script>
 
 </body>

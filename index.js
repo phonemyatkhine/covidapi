@@ -1,3 +1,4 @@
+const { exec, spawn } = require('child_process');
 var mongoose = require('mongoose');
 var cons = require("consolidate");
 var neatCsv = require('neat-csv');
@@ -44,33 +45,72 @@ app.post('/', upload, (req, res) => {
   });
 });
 
-app.get('/reloadAll',ReadFiles,LoadModules,LoadData,CreateRoute,LoadRoutes);
+app.get('/prepareData', PrepareData);
 
-app.get('/readfiles', async function (req, res) {
-  console.log("Read files");
+app.get('/createModels', CreateModels);
 
+app.get('/loadModules', LoadModules);
+
+app.get('/loadData', LoadData);
+
+app.get('/createRoutes', CreateRoutes);
+
+app.get('/loadRoutes', LoadRoutes);
+
+async function PrepareData(req,res) 
+{
+  console.log("Prepare Data");
+
+  var SysParams = [];
+  SysParams.push("DataPrepare.py")
   await fs.readdir(__dirname + '/uploads', function (error, files) {
+    console.log("work");
+
     var totalFiles = files.length;
+    console.log(totalFiles);
+
+    SysParams.push(totalFiles);
+    
     files.forEach(async element => {
-      await chooseFileType(element);
+      SysParams.push(element);
     });
+
+    var python = spawn('python', SysParams);
+    var cmdGo;
+
+    cmdGo = python;
+
+    cmdGo.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+    });
+
+    cmdGo.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+    });
+
+    cmdGo.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+
   });
+
+  console.log(SysParams);
   res.redirect('/api/admin');
-});
+}
 
-async function ReadFiles(req,res,next) {
-  console.log("Read files");
+async function CreateModels(req, res, next) {
+  console.log("Create Models");
 
-  await fs.readdir(__dirname + '/uploads', function (error, files) {
+  await fs.readdir(__dirname + '/uploadsPrepare', function (error, files) {
     var totalFiles = files.length;
     files.forEach(async element => {
       await chooseFileType(element);
     });
-    next();
+    res.redirect('/api/admin');;
   });
 }
 
-app.get('/loadModule', async function (req, res) {
+async function LoadModules(req, res, next) {
   console.log("Load modules");
   modules = [];
   moudlesName = [];
@@ -82,93 +122,35 @@ app.get('/loadModule', async function (req, res) {
       moudlesName.push(name);
       modules.push(require(__dirname + "/models/" + element));
     }
-  });
-  res.redirect('/api/admin');
-});
-
-async function LoadModules (req,res,next) {
-  console.log("Load modules");
-  modules = [];
-  moudlesName = [];
-  await fs.readdir(__dirname + '/models', function (error, files) {
-    var totalFiles = files.length;
-    for (let i = 0; i < totalFiles; i++) {
-      const element = files[i];
-      var name = element.slice(0, -3);
-      moudlesName.push(name);
-      modules.push(require(__dirname + "/models/" + element));
-    }
-    next();
+    res.redirect('/api/admin');;
   });
 }
 
-app.get('/loadData', function (req, res) {
+async function LoadData(req, res, next) {
   console.log("Load data");
 
-  fs.readdir(__dirname + '/uploads', async function (error, files) {
+  fs.readdir(__dirname + '/uploadsPrepare', async function (error, files) {
     var totalFiles = files.length;
     await files.forEach(element => {
       chooseFileTypeData(element);
     });
-    res.redirect('/api/admin');
-  });
-});
-
-async function LoadData (req,res,next) {
-  console.log("Load data");
-
-  fs.readdir(__dirname + '/uploads', async function (error, files) {
-    var totalFiles = files.length;
-    await files.forEach(element => {
-      chooseFileTypeData(element);
-    });
-    next();
+    res.redirect('/api/admin');;
   });
 }
 
-app.get('/CreateRoute', async function (req, res) {
+async function CreateRoutes(req, res, next) {
   console.log("Create routes");
 
-  await fs.readdir(__dirname + '/uploads', function (error, files) {
+  await fs.readdir(__dirname + '/uploadsPrepare', function (error, files) {
     var totalFiles = files.length;
     files.forEach(element => {
       chooseFileTypeRoute(element);
     });
-  });
-  res.redirect('/api/admin');
-});
-
-async function CreateRoute (req,res,next) {
-  console.log("Create routes");
-
-  await fs.readdir(__dirname + '/uploads', function (error, files) {
-    var totalFiles = files.length;
-    files.forEach(element => {
-      chooseFileTypeRoute(element);
-    });
-    next();
+    res.redirect('/api/admin');;
   });
 }
 
-app.get('/loadRoute', async function (req, res) {
-  console.log("Load routes");
-  routeModules = [];
-  routeModulesName = [];
-  await fs.readdir(__dirname + '/routes', function (error, files) {
-    var totalFiles = files.length;
-    for (let i = 0; i < totalFiles; i++) {
-      const element = files[i];
-      var name = element.slice(0, -3);
-      routeModulesName.push(name);
-      routeModules.push(require(__dirname + "/routes/" + element));
-      name = element.slice(0, -9);
-      app.use("/api/" + name, routeModules[i]);
-    }
-  });
-  res.redirect('/api/admin');
-});
-
-async function LoadRoutes (req,res,next) {
+async function LoadRoutes(req, res, next) {
   console.log("Load routes");
   routeModules = [];
   routeModulesName = [];
@@ -185,42 +167,6 @@ async function LoadRoutes (req,res,next) {
   });
   res.redirect('/api/admin');
 }
-
-app.get('/testCSV', function (req, res) {
-  var filename = "diabetes.csv";
-  chooseFileType(filename);
-  res.redirect('/');
-});
-
-app.get('/testXlsx', function (req, res) {
-  var filename = "COVID 19 Detail,UIT.xlsx";
-  chooseFileType(filename);
-  res.redirect('/');
-});
-
-app.get('/testCSVData', function (req, res) {
-  var filename = "diabetes.csv";
-  chooseFileTypeData(filename);
-  res.redirect('/');
-});
-
-app.get('/testXlsxData', function (req, res) {
-  var filename = "COVID 19 Detail,UIT.xlsx";
-  chooseFileTypeData(filename);
-  res.redirect('/');
-});
-
-app.get('/testCSVRoute', function (req, res) {
-  var filename = "diabetes.csv";
-  chooseFileTypeRoute(filename);
-  res.redirect('/');
-});
-
-app.get('/testXlsxRoute', function (req, res) {
-  var filename = "COVID 19 Detail,UIT.xlsx";
-  chooseFileTypeRoute(filename);
-  res.redirect('/');
-});
 
 async function chooseFileType(filename) {
   var Data;
@@ -260,7 +206,7 @@ async function chooseFileTypeRoute(filename) {
 
 async function CSVreader(filename) {
   var Data;
-  fs.readFile(__dirname + "/uploads/" + filename, async (err, data) => {
+  fs.readFile(__dirname + "/uploadsPrepare/" + filename, async (err, data) => {
     if (err) {
       console.error(err);
       return
@@ -273,8 +219,16 @@ async function CSVreader(filename) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
         var P = p.split(" ").join("");
-        p=P;
+        p = P;
         P = p.split("-").join("");
+        p = P;
+        P = p.split("/").join("");
+        p = P;
+        P = p.split("\\").join("");
+        if (!isNaN(P.charAt(0))) {
+          P = "_" + P;
+        }
+        P = P.replace(/([^A-Za-z0-9\_]+)/gi, "");
         result.push(P);
       }
     }
@@ -286,7 +240,7 @@ async function CSVreader(filename) {
 
 async function Xlsxreader(filename) {
   var Data;
-  var workbook = xlsx.readFile(__dirname + "/uploads/" + filename)
+  var workbook = xlsx.readFile(__dirname + "/uploadsPrepare/" + filename)
   var sheet_name_list = workbook.SheetNames;
   sheet_name_list.forEach(element => {
     Data = xlsx.utils.sheet_to_json(workbook.Sheets[element]);
@@ -297,8 +251,16 @@ async function Xlsxreader(filename) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
         var P = p.split(" ").join("");
-        p=P;
+        p = P;
         P = p.split("-").join("");
+        p = P;
+        P = p.split("/").join("");
+        p = P;
+        P = p.split("\\").join("");
+        if (!isNaN(P.charAt(0))) {
+          P = "_" + P;
+        }
+        P = P.replace(/([^A-Za-z0-9\_]+)/gi, "");
         result.push(P);
       }
     }
@@ -311,6 +273,8 @@ async function Xlsxreader(filename) {
 function CreatingModelJs(filename, params, paramsType) {
   filename = filename.split(" ").join("");
   filename = filename.split("-").join("");
+  filename = filename.split("/").join("");
+  filename = filename.split("\\").join("");
   var writeStream = fs.createWriteStream("./models/" + filename + ".js");
   writeStream.write("const mongoose = require(\"mongoose\");\n");
   writeStream.write("const " + filename + "Schema = new mongoose.Schema({\n");
@@ -329,6 +293,8 @@ function CreatingModelJs(filename, params, paramsType) {
 function CreatingModelJsNoParamType(filename, params) {
   filename = filename.split(" ").join("");
   filename = filename.split("-").join("");
+  filename = filename.split("/").join("");
+  filename = filename.split("\\").join("");
   var writeStream = fs.createWriteStream("./models/" + filename + ".js");
   writeStream.write("const mongoose = require(\"mongoose\");\n");
   writeStream.write("const " + filename + "Schema = new mongoose.Schema({\n");
@@ -347,6 +313,8 @@ function CreatingModelJsNoParamType(filename, params) {
 function CreatingRouteJs(filename, params) {
   filename = filename.split(" ").join("");
   filename = filename.split("-").join("");
+  filename = filename.split("/").join("");
+  filename = filename.split("\\").join("");
   var writeStream = fs.createWriteStream("./routes/" + filename + ".route.js");
 
   writeStream.write("var express = require(\"express\");\n");
@@ -415,23 +383,38 @@ function CreatingRouteJs(filename, params) {
 
 async function CSVDatareader(filename) {
   var Data;
-  fs.readFile(__dirname + "/uploads/" + filename, async (err, data) => {
+  fs.readFile(__dirname + "/uploadsPrepare/" + filename, async (err, data) => {
     if (err) {
       console.error(err);
       return
     }
     filename = filename.split(" ").join("");
     filename = filename.split("-").join("");
+    filename = filename.split("/").join("");
+    filename = filename.split("\\").join("");
     filename = filename.slice(0, -4);
+    filename = filename.replace(/([^A-Za-z0-9\_]+)/gi, "");
     Data = await neatCsv(data);
     Data.forEach(async element => {
-      console.log(element);
-      
+      for (var p in element) {
+        if (element.hasOwnProperty(p)) {
+          var newName;
+          newName = p.split(" ").join("");
+          newName = newName.split("-").join("");
+          newName = newName.split("/").join("");
+          newName = newName.split("\\").join("");
+          if (!isNaN(newName.charAt(0))) {
+            newName = "_" + newName;
+          }
+          newName = newName.replace(/([^A-Za-z0-9\_]+)/gi, "");
+          renameKey(element, p, newName);
+        }
+      }
       var index = moudlesName.indexOf(filename);
       var Uploadmodule = modules[index];
-      Uploadmodule.findOne(element,async function (err, result) {
+      Uploadmodule.findOne(element, async function (err, result) {
         if (result) {
-          console.log("Duplicate "+result);
+          //console.log("Duplicate " + result);
         } else {
           var Uploadvariable = new Uploadmodule(
             element
@@ -449,23 +432,38 @@ async function CSVDatareader(filename) {
 
 async function XlsxDatareader(filename) {
   var Data;
-  var workbook = xlsx.readFile(__dirname + "/uploads/" + filename)
+  var workbook = xlsx.readFile(__dirname + "/uploadsPrepare/" + filename)
   var sheet_name_list = workbook.SheetNames;
   sheet_name_list.forEach(element => {
     Data = xlsx.utils.sheet_to_json(workbook.Sheets[element]);
     element = element.split(" ").join("");
     element = element.split("-").join("");
+    element = element.split("/").join("");
+    element = element.split("\\").join("");
+    element = element.replace(/([^A-Za-z0-9\_]+)/gi, "");
     console.log("Data Reading");
-    
+
     Data.forEach(async ele => {
-      console.log(ele);
-      
+      for (var p in ele) {
+        if (ele.hasOwnProperty(p)) {
+          var newName;
+          newName = p.split(" ").join("");
+          newName = newName.split("-").join("");
+          newName = newName.split("/").join("");
+          newName = newName.split("\\").join("");
+          if (!isNaN(newName.charAt(0))) {
+            newName = "_" + newName;
+          }
+          newName = newName.replace(/([^A-Za-z0-9\_]+)/gi, "");
+          renameKey(ele, p, newName);
+        }
+      }
       var index = moudlesName.indexOf(element);
       var Uploadmodule = modules[index];
       Uploadmodule.findOne(ele, async function (err, result) {
         if (result) {
-          console.log("Duplicate "+result);
-          
+          //console.log("Duplicate " + result);
+
         } else {
           var Uploadvariable = new Uploadmodule(
             ele
@@ -483,7 +481,7 @@ async function XlsxDatareader(filename) {
 
 async function CSVRoutereader(filename) {
   var Data;
-  fs.readFile(__dirname + "/uploads/" + filename, async (err, data) => {
+  fs.readFile(__dirname + "/uploadsPrepare/" + filename, async (err, data) => {
     if (err) {
       console.error(err);
       return
@@ -496,8 +494,16 @@ async function CSVRoutereader(filename) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
         var P = p.split(" ").join("");
-        p=P;
+        p = P;
         P = p.split("-").join("");
+        p = P;
+        P = p.split("/").join("");
+        p = P;
+        P = p.split("\\").join("");
+        if (!isNaN(P.charAt(0))) {
+          P = "_" + P;
+        }
+        P = P.replace(/([^A-Za-z0-9\_]+)/gi, "");
         result.push(P);
       }
     }
@@ -508,7 +514,7 @@ async function CSVRoutereader(filename) {
 
 async function XlsxRoutereader(filename) {
   var Data;
-  var workbook = xlsx.readFile(__dirname + "/uploads/" + filename)
+  var workbook = xlsx.readFile(__dirname + "/uploadsPrepare/" + filename)
   var sheet_name_list = workbook.SheetNames;
   sheet_name_list.forEach(element => {
     Data = xlsx.utils.sheet_to_json(workbook.Sheets[element]);
@@ -519,8 +525,16 @@ async function XlsxRoutereader(filename) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
         var P = p.split(" ").join("");
-        p=P;
+        p = P;
         P = p.split("-").join("");
+        p = P;
+        P = p.split("/").join("");
+        p = P;
+        P = p.split("\\").join("");
+        if (!isNaN(P.charAt(0))) {
+          P = "_" + P;
+        }
+        P = P.replace(/([^A-Za-z0-9\_]+)/gi, "");
         result.push(P);
       }
     }
@@ -531,6 +545,16 @@ async function XlsxRoutereader(filename) {
 
 function jsUcfirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function renameKey(obj, old_key, new_key) {
+  // check if old key = new key 
+  if (old_key !== new_key) {
+    Object.defineProperty(obj, new_key, // modify old key 
+      // fetch description from object 
+      Object.getOwnPropertyDescriptor(obj, old_key));
+    delete obj[old_key];			 // delete old key 
+  }
 }
 
 module.exports = app;
