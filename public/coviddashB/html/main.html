@@ -221,7 +221,8 @@
         </p>
 
         <p>
-          <a href="http://localhost:3000/api/generate/createModels" style="color: blue;float: left;">Create Models &nbsp;
+          <a href="http://localhost:3000/api/generate/createModels" style="color: blue;float: left;">Create Models
+            &nbsp;
         </p>
 
         <p>
@@ -233,7 +234,8 @@
         </p>
 
         <p>
-          <a href="http://localhost:3000/api/generate/createRoutes" style="color: blue;float: left;">Create Routes &nbsp;
+          <a href="http://localhost:3000/api/generate/createRoutes" style="color: blue;float: left;">Create Routes
+            &nbsp;
         </p>
 
         <p>
@@ -299,7 +301,6 @@
 
           try {
             data = JSON.parse(this.response)
-            console.log(data)
           } catch (e) {
             window.location = "http://localhost:3000/static/coviddashB/html/login.html";
           }
@@ -309,7 +310,6 @@
           var ultag = document.getElementsByClassName("nav");
           ultag = ultag[0];
           var data;
-          console.log("data " + data)
           if (request.status >= 200 && request.status < 400) {
             data.forEach(ele => {
               allNav.push(ele);
@@ -395,10 +395,9 @@
               }
 
               pSearchArr.push(p);
-              console.log("psearcharr" + pSearchArr)
-
             }
           }
+          
           idArr = [];
           var makeChecked = true;
           data.forEach(element => {
@@ -468,7 +467,6 @@
         formheadUpdate.innerHTML = "";
         formheadDelete.innerHTML = "";
 
-        var formPopSearch = document.getElementById("popupSearchForm");
         var formPopAdd = document.getElementById("popupAddForm");
         var formPopUpdate = document.getElementById("popupUpdateForm");
         var formPopDelete = document.getElementById("popupDeleteForm");
@@ -555,7 +553,6 @@
         ActionBtn.type = "button";
         ActionBtn.innerHTML = "Search";
         formbodySearch.appendChild(ActionBtn);
-        console.log("action button")
 
         ActionBtn.setAttribute("id", "searchBtn");
 
@@ -588,7 +585,6 @@
         CancelBtnAdd.innerHTML = "Cancel";
         CancelBtnAdd.type = "button";
         CancelBtnAdd.onclick = function () {
-          console.log("Add cancel")
           document.getElementById('popAddDiv').style.display = 'none';
         }
         formbodyAdd.appendChild(CancelBtnAdd);
@@ -617,16 +613,24 @@
     }
 
     function PopUpTheForm(params) {
+      console.log(params.id);
+
       if (params.id == "Add") {
+        var formPopAdd = document.getElementById("popupAddForm");
+        formPopAdd.action = "/api/generate/api/" + currentNav;
         document.getElementById('popAddDiv').style.display = 'block';
       }
       if (params.id == "Update") {
+        var formPopUpdate = document.getElementById("popupUpdateForm");
+        formPopUpdate.action = "/api/generate/api/" + currentNav + "/" + selectedId;
+
         var Tr = document.getElementById(selectedId);
         var formbodyUpdate = document.getElementById("popupUpdateBody");
         var formNodes = formbodyUpdate.childNodes;
-        var count = 2;
+        var count = 1;
         var nodes = Tr.childNodes;
         var flag = false;
+
         nodes.forEach(element => {
           if (element.childElementCount == 0) {
             formNodes[count].value = element.innerHTML;
@@ -636,25 +640,22 @@
         document.getElementById('popUpdateDiv').style.display = 'block';
       }
       if (params.id == "Delete") {
+        var formPopDelete = document.getElementById("popupDeleteForm");
+        formPopDelete.action = "/api/generate/api/" + currentNav + "/" + selectedId;
         document.getElementById('popDeleteDiv').style.display = 'block';
       }
 
       if (params.id == "Search") {
         document.getElementById('popSearchDiv').style.display = 'block';
-        console.log("search")
 
-
-        console.log("before search")
         var searchBtn = document.getElementById("searchBtn");
 
         searchBtn.addEventListener('click', () => {
           document.getElementById('popSearchDiv').style.display = 'none';
-          console.log("P Search Test");
           valueSearchArr = [];
           for (i in pSearchArr) {
 
             if (pSearchArr[i] != "_id" && pSearchArr[i] != "__v") {
-              console.log(pSearchArr[i]);
 
               var pId = document.getElementById(pSearchArr[i]);
               var value = pId.value;
@@ -695,15 +696,9 @@
       var length = dataArr.length;
       var aLength = length / count;
 
-      console.log("length " + length)
-      console.log("alength " + aLength)
-      console.log("count " + count)
-
       var mCount = 0;
       var tCount = 0;
 
-      //blah
-      console.log("valuesearch arr " + valueSearchArr)
       searchTableArr = [];
       for (var i = 0; i < length; i++) {
         mCount = 0;
@@ -719,11 +714,7 @@
         }
 
         if (tCount == mCount) {
-
-          console.log(`tcount ${tCount}`)
-          console.log(`mcount ${mCount}`)
-
-
+          
           var trueRow = (j + (aLength * i)) / aLength;
           Math.ceil(trueRow);
 
@@ -731,8 +722,6 @@
         }
 
       }
-      //blah
-      console.log("searchTableArr" + searchTableArr)
 
       searchTableLoader();
 
@@ -753,12 +742,9 @@
         sTableDel.innerHTML = "";
 
       }
-
-      console.log("idarr" + idArr.length);
-      console.log("count " + count);
-
+      
       var tableBody = document.getElementById("TableBody");
-      // tableBody.innerHTML = "";
+      
       if (idArr.length == count) {
         var tr = document.createElement("tr");
 
