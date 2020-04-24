@@ -1,0 +1,22 @@
+SR_Pcode,State_Region,Tsp_Pcode,Township,Country,Returnees
+MMR008,Bago (West),MMR008012,Nattalin,Thailand,196
+MMR008,Bago (West),MMR008012,Nattalin,China,18
+MMR008,Bago (West),MMR008012,Nattalin,Others,20
+MMR008,Bago (West),MMR008009,Minhla,China,59
+MMR008,Bago (West),MMR008009,Minhla,India,1
+MMR008,Bago (West),MMR008009,Minhla,Korea,2
+MMR008,Bago (West),MMR008009,Minhla,Laos,17
+MMR008,Bago (West),MMR008009,Minhla,Malaysia,7
+MMR008,Bago (West),MMR008009,Minhla,Singapore,3
+MMR008,Bago (West),MMR008009,Minhla,Thailand,544
+MMR007,Bago (East),MMR008101,Taungoo,Thailand,369
+MMR007,Bago (East),MMR008101,Taungoo,China,53
+MMR007,Bago (East),MMR008101,Taungoo,Korea,5
+MMR007,Bago (East),MMR008101,Taungoo,Malaysia,6
+MMR007,Bago (East),MMR008101,Taungoo,Singapore,18
+MMR007,Bago (East),MMR008101,Taungoo,Japan,1
+MMR007,Bago (East),MMR008101,Taungoo,Others,145
+MMR009,Magway,MMR009019,Yesagyo,China,183
+MMR009,Magway,MMR009019,Yesagyo,Thailand,114
+MMR009,Magway,MMR009019,Yesagyo,Others,38
+MMR007,Bago (East),MMR007008,Shwegyin,NA,347

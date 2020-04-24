@@ -1,0 +1,17 @@
+SR_Pcode,State_Region,Tsp_Pcode,Township,Facility,Description,Type,Quantity_Required,Quantity_Secured,Quantity_Issued,Quantity_In_Store,Remark
+MMR008,Bago,MMR008014,Gyobingauk,Isolation Center,PPE,Set,150,80,,80,Tsp Hospital 60
+MMR008,Bago,MMR008014,Gyobingauk,Isolation Center,Shoe,Set,10,0,,,
+MMR008,Bago,MMR008014,Gyobingauk,Isolation Center,Goggle,No,10,10,,10,
+MMR008,Bago,MMR008014,Gyobingauk,Isolation Center,Face Shield,No,30,,,,
+MMR008,Bago,MMR008014,Gyobingauk,Isolation Center,Surgical Mask,No,10000,10000,,10000,
+MMR008,Bago,MMR008014,Gyobingauk,Isolation Center,N-95 Mask,No,100,0,,0,
+MMR008,Bago,MMR008014,Gyobingauk,Isolation Center,Examination Glove,Box,200,0,,0,
+MMR008,Bago,MMR008014,Gyobingauk,Isolation Center,Hand Gel,No,15,15,,15,"If we get HG, make with spirit. (Contact with Naing Lin)"
+MMR008,Bago,MMR008014,Gyobingauk,Isolation Center,Infrared Thermometer,No,40,8,4,4,"MCH, FFSS, SHU(Alg), SC(Gyo_Gone) (Contact person Tun Ko Aung-09428078205)"
+MMR008,Bago,MMR008014,Gyobingauk,Isolation Center,Thermometer,No,500,0,,0,For every quarantine people
+MMR008,Bago,MMR008014,Gyobingauk,For Quaratine Center,Soap,No,500,60,,,
+MMR008,Bago,MMR008014,Gyobingauk,For Quaratine Center,Tooth Paste,No,500,104,,,
+MMR008,Bago,MMR008014,Gyobingauk,For Quaratine Center,Tooth Brush,No,500,,,,
+MMR008,Bago,MMR008014,Gyobingauk,For Quaratine Center,Cup,No,500,,,,
+MMR008,Bago,MMR008014,Gyobingauk,For Quaratine Center,Screen(Isolation Room),No,10,0,,0,
+MMR008,Bago,MMR008014,Gyobingauk,For Quaratine Center,Pesticde Spray Box,No,3,,,,

@@ -1,0 +1,22 @@
+,SR_Pcode,State_Region,Tsp_Pcode,Township,Country,Returnees
+0,MMR008,Bago (West),MMR008012,Nattalin,Thailand,196
+1,MMR008,Bago (West),MMR008012,Nattalin,China,18
+2,MMR008,Bago (West),MMR008012,Nattalin,Others,20
+3,MMR008,Bago (West),MMR008009,Minhla,China,59
+4,MMR008,Bago (West),MMR008009,Minhla,India,1
+5,MMR008,Bago (West),MMR008009,Minhla,Korea,2
+6,MMR008,Bago (West),MMR008009,Minhla,Laos,17
+7,MMR008,Bago (West),MMR008009,Minhla,Malaysia,7
+8,MMR008,Bago (West),MMR008009,Minhla,Singapore,3
+9,MMR008,Bago (West),MMR008009,Minhla,Thailand,544
+10,MMR007,Bago (East),MMR008101,Taungoo,Thailand,369
+11,MMR007,Bago (East),MMR008101,Taungoo,China,53
+12,MMR007,Bago (East),MMR008101,Taungoo,Korea,5
+13,MMR007,Bago (East),MMR008101,Taungoo,Malaysia,6
+14,MMR007,Bago (East),MMR008101,Taungoo,Singapore,18
+15,MMR007,Bago (East),MMR008101,Taungoo,Japan,1
+16,MMR007,Bago (East),MMR008101,Taungoo,Others,145
+17,MMR009,Magway,MMR009019,Yesagyo,China,183
+18,MMR009,Magway,MMR009019,Yesagyo,Thailand,114
+19,MMR009,Magway,MMR009019,Yesagyo,Others,38
+20,MMR007,Bago (East),MMR007008,Shwegyin,null,347

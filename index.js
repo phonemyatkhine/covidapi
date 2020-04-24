@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { exec, spawn } = require('child_process');
 var mongoose = require('mongoose');
 var cons = require("consolidate");
@@ -215,6 +216,7 @@ async function CSVreader(filename) {
     var result = [];
     var type = [];
     var obj = Data[0];
+    var counter = 1;
     for (var p in obj) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
@@ -229,6 +231,11 @@ async function CSVreader(filename) {
           P = "_" + P;
         }
         P = P.replace(/([^A-Za-z0-9\_]+)/gi, "");
+        if(P.length==0)
+        {
+          P = "Para_"+counter;
+          counter++;
+        }
         result.push(P);
       }
     }
@@ -247,6 +254,7 @@ async function Xlsxreader(filename) {
     var result = [];
     var type = [];
     var obj = Data[0];
+    var counter = 1;
     for (var p in obj) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
@@ -261,6 +269,11 @@ async function Xlsxreader(filename) {
           P = "_" + P;
         }
         P = P.replace(/([^A-Za-z0-9\_]+)/gi, "");
+        if(P.length==0)
+        {
+          P = "Para_"+counter;
+          counter++;
+        }
         result.push(P);
       }
     }
@@ -340,10 +353,10 @@ function CreatingRouteJs(filename, params) {
   writeStream.write("try {\n");
   writeStream.write("var upload = new " + filename + "(req.body);\n");
   writeStream.write("await upload.save();\n");
-  writeStream.write("res.redirect(\"http://localhost:3000/static/coviddashB/html/main.html\");\n");
+  writeStream.write("res.redirect(\""+process.env.RETURNADDRESS+"\");\n");
   writeStream.write("} catch (e) {\n");
   writeStream.write("console.log(e);\n");
-  writeStream.write("res.redirect(\"http://localhost:3000/static/coviddashB/html/main.html\");\n");
+  writeStream.write("res.redirect(\""+process.env.RETURNADDRESS+"\");\n");
   writeStream.write("}\n");
   writeStream.write("});\n");
 
@@ -361,7 +374,7 @@ function CreatingRouteJs(filename, params) {
   writeStream.write("console.log(e);\n");
   writeStream.write("}\n");
   writeStream.write("}\n");
-  writeStream.write("res.redirect(\"http://localhost:3000/static/coviddashB/html/main.html\");\n");
+  writeStream.write("res.redirect(\""+process.env.RETURNADDRESS+"\");\n");
   writeStream.write("});\n");
 
   for (let i = 0; i < params.length; i++) {
@@ -396,6 +409,7 @@ async function CSVDatareader(filename) {
     filename = filename.replace(/([^A-Za-z0-9\_]+)/gi, "");
     Data = await neatCsv(data);
     Data.forEach(async element => {
+      var counter = 1;
       for (var p in element) {
         if (element.hasOwnProperty(p)) {
           var newName;
@@ -407,6 +421,11 @@ async function CSVDatareader(filename) {
             newName = "_" + newName;
           }
           newName = newName.replace(/([^A-Za-z0-9\_]+)/gi, "");
+          if(newName.length == 0)
+          {
+            newName = "Para_"+counter;
+            counter++;
+          }
           renameKey(element, p, newName);
         }
       }
@@ -444,6 +463,7 @@ async function XlsxDatareader(filename) {
     console.log("Data Reading");
 
     Data.forEach(async ele => {
+      var counter = 1;
       for (var p in ele) {
         if (ele.hasOwnProperty(p)) {
           var newName;
@@ -455,6 +475,11 @@ async function XlsxDatareader(filename) {
             newName = "_" + newName;
           }
           newName = newName.replace(/([^A-Za-z0-9\_]+)/gi, "");
+          if(newName.length==0)
+          {
+            newName = "Para_"+counter;
+            counter++;
+          }
           renameKey(ele, p, newName);
         }
       }
@@ -490,6 +515,7 @@ async function CSVRoutereader(filename) {
     var result = [];
     var type = [];
     var obj = Data[0];
+    var counter = 1;
     for (var p in obj) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
@@ -504,6 +530,11 @@ async function CSVRoutereader(filename) {
           P = "_" + P;
         }
         P = P.replace(/([^A-Za-z0-9\_]+)/gi, "");
+        if(P.length==0)
+        {
+          P = "Para_"+counter;
+          counter++;
+        }
         result.push(P);
       }
     }
@@ -521,6 +552,7 @@ async function XlsxRoutereader(filename) {
     var result = [];
     var type = [];
     var obj = Data[0];
+    var counter = 1;
     for (var p in obj) {
       if (obj.hasOwnProperty(p)) {
         type.push(jsUcfirst(typeof (obj[p])));
@@ -535,6 +567,11 @@ async function XlsxRoutereader(filename) {
           P = "_" + P;
         }
         P = P.replace(/([^A-Za-z0-9\_]+)/gi, "");
+        if(P.length==0)
+        {
+          P = "Para_"+counter;
+          counter++;
+        }
         result.push(P);
       }
     }
@@ -556,5 +593,4 @@ function renameKey(obj, old_key, new_key) {
     delete obj[old_key];			 // delete old key 
   }
 }
-
 module.exports = app;
