@@ -25,7 +25,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).any();
 var port = 3000;
 
-mongoose.connect(process.env.DATABASE_URL_TESTING, {
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

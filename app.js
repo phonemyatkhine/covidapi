@@ -10,10 +10,11 @@ var mongoose = require("mongoose"); //mongoose library for mongodb models
 var app = express();
 var port = 3000;
 
+console.log(process.env.DATABASE_URL);
 //connect mongoose to database
 mongoose.connect(process.env.DATABASE_URL, {
 	useNewUrlParser: true,
-	useUnifiedTopology: true,
+	useUnifiedTopology: true
 });
 var db = mongoose.connection; //specify db is mongoose connection
 
@@ -38,12 +39,12 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 app.use("/api/dummy", dummyData);
 app.use("/api/admin", admin);
 //app.use("/api/news", news);
-app.use("/api/generate", generate);
+app.use("/api/generate",generate);
 
 app.listen(port);
 console.log("Starting.....");
 console.log("http://" + process.env.ADDRESS + ":" + port);
 
 //open db which is mongoose connection
-db.on("error", (error) => console.error(error));
+db.on("error", error => console.error(error));
 db.once("open", () => console.log("Database connection successful..."));

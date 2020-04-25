@@ -68,6 +68,7 @@ router.get("/login", function (req, res) {
 // 	// redirect_url will embed to login page
 // 	res.render("login", render_data);
 // });
+
 router.post("/login", async (req, res) => {
 	let email = req.body.email;
 	let password = req.body.password;
