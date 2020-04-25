@@ -11,13 +11,15 @@ function TokenCheck(req,res,next)
     }
     else
     {
-        res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+        // res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+        res.json({ code: 403, body: "Login required" });
     }
     if(token)
     {
         jwt.verify(token, process.env.KEY, (err, _nil) => {
 			if (err) {
-				res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+                // res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+                res.json({ code: 403, body: "Login required" });
 			}
         });
         next();

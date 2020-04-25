@@ -1,6 +1,6 @@
-var MongoClient = require('mongodb').MongoClient;
+var MongoClient = require("mongodb").MongoClient;
 var express = require("express");
-var multer = require('multer');
+var multer = require("multer");
 var jwt = require("jsonwebtoken");
 var router = express.Router();
 var Admin = require("../defaultModels/admin.model");
@@ -13,49 +13,55 @@ const expiration = 4000000;
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, __dirname + '/uploads')
+		cb(null, __dirname + "/uploads");
 	},
 	filename: function (req, file, cb) {
-		cb(null, file.originalname)
-	}
-})
+		cb(null, file.originalname);
+	},
+});
 var upload = multer({ storage: storage }).any();
 
-router.post('/add_file', upload, (req, res) => {
+router.post("/add_file", upload, (req, res) => {
 	upload(req, res, function (err) {
 		if (err) {
 			return res.end("Error uploading file.");
 		}
-		res.redirect('/');
+		res.redirect("/");
 	});
 });
 
-router.get('/collections', Checker, function (req, res) {
+router.get("/collections", Checker, function (req, res) {
 	var Redata = [];
-	MongoClient.connect(process.env.DATABASE_URL_TESTING, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true
-	}, function (err, db) {
-		var db1 = db.db('covidapi');
-		db1.listCollections().toArray(function (err, items) {
-			items.forEach(element => {
-				if (element.name != "admin") {
-					Redata.push(element.name);
-				}
+	MongoClient.connect(
+		process.env.DATABASE_URL_TESTING,
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		},
+		function (err, db) {
+			var db1 = db.db("covidapi");
+			db1.listCollections().toArray(function (err, items) {
+				items.forEach((element) => {
+					if (element.name != "admin") {
+						Redata.push(element.name);
+					}
+				});
+				res.setHeader("Access-Control-Allow-Origin", "*");
+				res.json(Redata);
 			});
-			res.setHeader("Access-Control-Allow-Origin", "*");
-			res.json(Redata);
-		});
-	});
+		}
+	);
 });
 
 //dev stage
 router.get("/", Checker, function (req, res) {
-	res.redirect("http://localhost:3000/static/coviddashB/html/main.html");
+	// res.redirect("http://localhost:3000/static/coviddashB/html/main.html");
+	res.json({ code: 200, body: "success" });
 });
 
 router.get("/login", function (req, res) {
-	res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+	// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+	res.json({ code: 403, body: "Login required" });
 });
 
 // router.get(/\/login(\/r=(.*))?/, (req, res) => {
@@ -81,23 +87,23 @@ router.post("/login", async (req, res) => {
 	}
 
 	if (token) {
-
 		jwt.verify(token, process.env.KEY, (err, _nil) => {
 			if (err) {
 				console.log("verifying error");
 
-				res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
-			}
-			else {
+				// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+				res.json({ code: 403, body: "Login required" });
+			} else {
 				console.log("work");
 
-				res.redirect("http://localhost:3000/static/coviddashB/html/main.html")
+				// res.redirect("http://localhost:3000/static/coviddashB/html/main.html")
+				res.json({ code: 200, body: "success" });
 			}
 		});
 	} else {
 		try {
 			var admin = await Admin.findOne({
-				email: email
+				email: email,
 			});
 			if (admin) {
 				console.log("Found");
@@ -109,36 +115,44 @@ router.post("/login", async (req, res) => {
 					.update(input_pass)
 					.digest("hex");
 				if (hashedPassword == admin.password) {
-					token = jwt.sign({
-						email,
-						password
-					},
-						process.env.KEY, {
-						expiresIn: "1d"
-					}
+					console.log("matched!");
+					token = jwt.sign(
+						{
+							email,
+							password,
+						},
+						process.env.KEY,
+						{
+							expiresIn: "1d",
+						}
 					);
 					console.log("Assign Cookie");
 
-					res.status(200)
-						.cookie("token", token, {
-							expires: new Date(Date.now() + expiration),
-							secure: false,
-							httpOnly: true
-						})
-						.cookie("acc", email)
-						.redirect("http://localhost:3000/static/coviddashB/html/main.html");
+					// res.status(200)
+					// 	.cookie("token", token, {
+					// 		expires: new Date(Date.now() + expiration),
+					// 		secure: false,
+					// 		httpOnly: true,
+					// 	})
+					// 	.cookie("acc", email)
+					// 	.redirect(
+					// 		"http://localhost:3000/static/coviddashB/html/main.html"
+					// 	);
+					res.json({ code: 200, body: { "token": token, "acc": email } });
 				} else {
-					res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+					// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+					res.json({ code: 403, body: "Login required" });
 				}
 			} else {
-				res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+				// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+				res.json({ code: 403, body: "Login required" });
 			}
 		} catch (err) {
-			res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+			// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+			res.json({ code: 403, body: "Login required" });
 		}
 	}
 });
-
 
 router.post("/register", async (req, res) => {
 	console.log("Register calling");
@@ -147,11 +161,7 @@ router.post("/register", async (req, res) => {
 	let email = req.body.email;
 	let password = req.body.password;
 	let key = req.body.key;
-	let salt =
-		"_" +
-		Math.random()
-			.toString(36)
-			.substr(2, 9);
+	let salt = "_" + Math.random().toString(36).substr(2, 9);
 
 	let SaltedPassword = `${password}${salt}`;
 	let hashedPassword = crypto
@@ -164,38 +174,47 @@ router.post("/register", async (req, res) => {
 			let admin = new Admin({
 				email: email,
 				salt: salt,
-				password: hashedPassword
+				password: hashedPassword,
 			});
 			try {
 				var newAdmin = await Admin.findOne({
-					email: email
+					email: email,
 				});
 				if (newAdmin) {
-					res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
-				}
-				else {
+					// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+					res.json({ code: 403, body: "Login required" });
+				} else {
 					await admin.save();
 					token = jwt.sign(
 						{
 							email,
-							password
+							password,
 						},
-						process.env.KEY, {
-						expiresIn: "1d"
-					});
-					res.status(200)
-					.cookie("token", token, { expires: new Date(Date.now() + expiration),secure: false,httpOnly: true})
-					.cookie("acc", email)
-					.redirect("http://localhost:3000/static/coviddashB/html/main.html");
+						process.env.KEY,
+						{
+							expiresIn: "1d",
+						}
+					);
+					// res.status(200)
+					// 	.cookie("token", token, {
+					// 		expires: new Date(Date.now() + expiration),
+					// 		secure: false,
+					// 		httpOnly: true,
+					// 	})
+					// 	.cookie("acc", email)
+					// 	.redirect(
+					// 		"http://localhost:3000/static/coviddashB/html/main.html"
+					// 	);
+					res.json({ code: 200, body: { "token": token, "acc": email } });
 				}
 			} catch (err) {
 				res.status(200).json({
-					message: "Admin Account Created"
+					body: "Admin Account Created",
 				});
 			}
 		} catch (err) {
 			res.status(500).json({
-				message: err.message
+				body: err.body,
 			});
 		}
 	}
@@ -206,7 +225,9 @@ router.post("/logout", async (req, res) => {
 	if (req.cookies.token != null) {
 		res.status(200)
 			.clearCookie("token")
-			.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+			// .redirect("http://localhost:3000/static/coviddashB/html/login.html");
+			.json({ code: 403, body: "Login required" });
 	}
-	res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+	// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
+	res.json({ code: 403, body: "Login required" });
 });
