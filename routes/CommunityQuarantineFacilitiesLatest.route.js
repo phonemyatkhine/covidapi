@@ -7,10 +7,10 @@ router.get("/", async (req, res) => {
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({});
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 200, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -45,10 +45,10 @@ let _ = req.params.value;
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({ _ : _ });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -57,10 +57,10 @@ let id = req.params.value;
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({ id : id });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -69,10 +69,10 @@ let SR_Pcode = req.params.value;
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({ SR_Pcode : SR_Pcode });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -81,10 +81,10 @@ let State_Region = req.params.value;
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({ State_Region : State_Region });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -93,10 +93,10 @@ let Tsp_Pcode = req.params.value;
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({ Tsp_Pcode : Tsp_Pcode });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -105,10 +105,10 @@ let Township = req.params.value;
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({ Township : Township });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -117,10 +117,10 @@ let Type = req.params.value;
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({ Type : Type });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -129,10 +129,10 @@ let Facility = req.params.value;
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({ Facility : Facility });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -141,10 +141,10 @@ let Date = req.params.value;
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({ Date : Date });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -153,10 +153,10 @@ let Admitted_Total = req.params.value;
 try {
 var upload = await CommunityQuarantineFacilitiesLatest.find({ Admitted_Total : Admitted_Total });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });

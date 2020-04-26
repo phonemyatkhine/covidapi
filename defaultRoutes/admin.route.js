@@ -33,7 +33,7 @@ router.post("/add_file", upload, (req, res) => {
 router.get("/collections", Checker, function (req, res) {
 	var Redata = [];
 	MongoClient.connect(
-		process.env.DATABASE_URL_TESTING,
+		process.env.DATABASE_URL,
 		{
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
@@ -46,8 +46,7 @@ router.get("/collections", Checker, function (req, res) {
 						Redata.push(element.name);
 					}
 				});
-				res.setHeader("Access-Control-Allow-Origin", "*");
-				res.status(200).json(Redata);
+				res.status(200).json({ code: 200, data: Redata });
 			});
 		}
 	);
@@ -59,8 +58,8 @@ router.post("/login", async (req, res) => {
 	console.log("Login calling " + email + " : " + password);
 	var token = null;
 
-	if (req.body.token != null) {
-		token = req.body.token;
+	if (req.query.token != null) {
+		token = req.query.token;
 		console.log("Tokein found " + token);
 	}
 

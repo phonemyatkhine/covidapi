@@ -7,10 +7,10 @@ router.get("/", async (req, res) => {
 try {
 var upload = await lockdown_locationSheet1.find({});
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 200, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -45,10 +45,10 @@ let _ = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ _ : _ });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -57,10 +57,10 @@ let Para_1 = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ Para_1 : Para_1 });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -69,10 +69,10 @@ let Para_2 = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ Para_2 : Para_2 });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -81,10 +81,10 @@ let Para_3 = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ Para_3 : Para_3 });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -93,10 +93,10 @@ let Para_4 = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ Para_4 : Para_4 });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -105,10 +105,10 @@ let TSPPcodemimu = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ TSPPcodemimu : TSPPcodemimu });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -117,10 +117,10 @@ let Para_5 = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ Para_5 : Para_5 });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -129,10 +129,10 @@ let Para_6 = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ Para_6 : Para_6 });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -141,10 +141,10 @@ let Para_7 = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ Para_7 : Para_7 });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -153,10 +153,10 @@ let Para_8 = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ Para_8 : Para_8 });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -165,10 +165,10 @@ let Para_9 = req.params.value;
 try {
 var upload = await lockdown_locationSheet1.find({ Para_9 : Para_9 });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });

@@ -7,10 +7,10 @@ router.get("/", async (req, res) => {
 try {
 var upload = await MedicalSupplieswithLocation.find({});
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 200, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -45,10 +45,10 @@ let _ = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ _ : _ });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -57,10 +57,10 @@ let AnnouncementDate = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ AnnouncementDate : AnnouncementDate });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -69,10 +69,10 @@ let Hospitaloriginal = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ Hospitaloriginal : Hospitaloriginal });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -81,10 +81,10 @@ let hospitalnamemm = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ hospitalnamemm : hospitalnamemm });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -93,10 +93,10 @@ let PPE = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ PPE : PPE });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -105,10 +105,10 @@ let Glove = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ Glove : Glove });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -117,10 +117,10 @@ let N95 = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ N95 : N95 });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -129,10 +129,10 @@ let SurgicalMask = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ SurgicalMask : SurgicalMask });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -141,10 +141,10 @@ let Goggle = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ Goggle : Goggle });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -153,10 +153,10 @@ let ShoeCover = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ ShoeCover : ShoeCover });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -165,10 +165,10 @@ let _16slidesCT = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ _16slidesCT : _16slidesCT });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -177,10 +177,10 @@ let ICUBed = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ ICUBed : ICUBed });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -189,10 +189,10 @@ let ECG = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ ECG : ECG });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -201,10 +201,10 @@ let InfusionPump = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ InfusionPump : InfusionPump });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -213,10 +213,10 @@ let SyringePump = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ SyringePump : SyringePump });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -225,10 +225,10 @@ let Ventilators = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ Ventilators : Ventilators });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -237,10 +237,10 @@ let Remarks = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ Remarks : Remarks });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -249,10 +249,10 @@ let Ref = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ Ref : Ref });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -261,10 +261,10 @@ let lat = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ lat : lat });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -273,10 +273,10 @@ let long = req.params.value;
 try {
 var upload = await MedicalSupplieswithLocation.find({ long : long });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });

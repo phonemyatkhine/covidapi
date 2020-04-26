@@ -7,10 +7,10 @@ router.get("/", async (req, res) => {
 try {
 var upload = await convertcsvUIT.find({});
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 200, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -45,10 +45,10 @@ let _ = req.params.value;
 try {
 var upload = await convertcsvUIT.find({ _ : _ });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -57,10 +57,10 @@ let name = req.params.value;
 try {
 var upload = await convertcsvUIT.find({ name : name });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -69,10 +69,10 @@ let phoneNumber = req.params.value;
 try {
 var upload = await convertcsvUIT.find({ phoneNumber : phoneNumber });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -81,10 +81,10 @@ let location = req.params.value;
 try {
 var upload = await convertcsvUIT.find({ location : location });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -93,10 +93,10 @@ let stateDivision = req.params.value;
 try {
 var upload = await convertcsvUIT.find({ stateDivision : stateDivision });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -105,10 +105,10 @@ let contactType = req.params.value;
 try {
 var upload = await convertcsvUIT.find({ contactType : contactType });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });

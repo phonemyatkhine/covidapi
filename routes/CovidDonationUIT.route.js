@@ -7,10 +7,10 @@ router.get("/", async (req, res) => {
 try {
 var upload = await CovidDonationUIT.find({});
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 200, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -45,10 +45,10 @@ let _ = req.params.value;
 try {
 var upload = await CovidDonationUIT.find({ _ : _ });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -57,10 +57,10 @@ let Name = req.params.value;
 try {
 var upload = await CovidDonationUIT.find({ Name : Name });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -69,10 +69,10 @@ let TypeofOrganisationorPerson = req.params.value;
 try {
 var upload = await CovidDonationUIT.find({ TypeofOrganisationorPerson : TypeofOrganisationorPerson });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -81,10 +81,10 @@ let ContactPhoneNumber = req.params.value;
 try {
 var upload = await CovidDonationUIT.find({ ContactPhoneNumber : ContactPhoneNumber });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -93,10 +93,10 @@ let Description = req.params.value;
 try {
 var upload = await CovidDonationUIT.find({ Description : Description });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -105,10 +105,10 @@ let MEB = req.params.value;
 try {
 var upload = await CovidDonationUIT.find({ MEB : MEB });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -117,10 +117,10 @@ let KBZ = req.params.value;
 try {
 var upload = await CovidDonationUIT.find({ KBZ : KBZ });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -129,10 +129,10 @@ let AYA = req.params.value;
 try {
 var upload = await CovidDonationUIT.find({ AYA : AYA });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -141,10 +141,10 @@ let CB = req.params.value;
 try {
 var upload = await CovidDonationUIT.find({ CB : CB });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -153,10 +153,10 @@ let KBZPay = req.params.value;
 try {
 var upload = await CovidDonationUIT.find({ KBZPay : KBZPay });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });

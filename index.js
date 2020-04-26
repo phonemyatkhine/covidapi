@@ -353,7 +353,7 @@ function CreatingRouteJs(filename, params) {
 	writeStream.write("try {\n");
 	writeStream.write("var upload = await " + filename + ".find({});\n");
 	writeStream.write('res.setHeader("Access-Control-Allow-Origin", "*");\n');
-	writeStream.write("res.json(upload);\n");
+	writeStream.write("res.json({ code: 200, data: upload });\n");
 	writeStream.write("} catch (err) {\n");
 	writeStream.write("res.status(500).json({\n");
 	writeStream.write("body: err.body\n");
@@ -413,7 +413,7 @@ function CreatingRouteJs(filename, params) {
 		writeStream.write(
 			'res.setHeader("Access-Control-Allow-Origin", "*");\n'
 		);
-		writeStream.write("res.json(upload);\n");
+		writeStream.write("res.json({ code: 201, data: upload });\n");
 		writeStream.write("} catch (err) {\n");
 		writeStream.write("res.status(500).json({\n");
 		writeStream.write("body: err.body\n");

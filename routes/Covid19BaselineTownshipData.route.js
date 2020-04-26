@@ -7,10 +7,10 @@ router.get("/", async (req, res) => {
 try {
 var upload = await Covid19BaselineTownshipData.find({});
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 200, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -45,10 +45,10 @@ let _ = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ _ : _ });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -57,10 +57,10 @@ let SR_PCODE = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ SR_PCODE : SR_PCODE });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -69,10 +69,10 @@ let SR_NAME = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ SR_NAME : SR_NAME });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -81,10 +81,10 @@ let SR_MM_NAME = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ SR_MM_NAME : SR_MM_NAME });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -93,10 +93,10 @@ let TS_PCODE = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ TS_PCODE : TS_PCODE });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -105,10 +105,10 @@ let TS_NAME = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ TS_NAME : TS_NAME });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -117,10 +117,10 @@ let TS_MM_NAME = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ TS_MM_NAME : TS_MM_NAME });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -129,10 +129,10 @@ let POP = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ POP : POP });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -141,10 +141,10 @@ let Under_5_POP = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ Under_5_POP : Under_5_POP });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -153,10 +153,10 @@ let Above_60_POP = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ Above_60_POP : Above_60_POP });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -165,10 +165,10 @@ let MEAN_HH_Size = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ MEAN_HH_Size : MEAN_HH_Size });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -177,10 +177,10 @@ let BED = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ BED : BED });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -189,10 +189,10 @@ let PHYSNB = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ PHYSNB : PHYSNB });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -201,10 +201,10 @@ let NURSNB = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ NURSNB : NURSNB });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
@@ -213,10 +213,10 @@ let HSNB = req.params.value;
 try {
 var upload = await Covid19BaselineTownshipData.find({ HSNB : HSNB });
 res.setHeader("Access-Control-Allow-Origin", "*");
-res.json(upload);
+res.json({ code: 201, data: upload });
 } catch (err) {
 res.status(500).json({
-message: err.message
+body: err.body
 });
 }
 });
