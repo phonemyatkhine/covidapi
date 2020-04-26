@@ -13,6 +13,7 @@ function TokenCheck(req, res, next) {
 	}
 	if (token) {
 		jwt.verify(token, process.env.KEY, (err, _nil) => {
+
 			if (err) {
 				// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
 				res.status(403).json({
