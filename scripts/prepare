@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+import sys
+import os
+import pandas as pd
+
+argc = len(sys.argv)
+
+missing_values = ["NA"]
+dataprepare = os.getcwd() + "/data/"
+uploaded = os.getcwd() + "/uploads/"
+
+for i in range(1, argc):
+    file = sys.argv[i]
+
+    if file.find(".csv") >= 0:
+        df = pd.read_csv(uploaded + file, na_values=missing_values)
+        df.fillna('null', inplace=True)
+        df.to_csv(dataprepare + file, header=True)
+    if file.find(".xlsx") >= 0:
+        xl = pd.ExcelFile(uploaded + file)
+        for index in xl.sheet_names:
+            df = pd.read_excel(
+                uploaded + file, sheet_name=index, na_values=missing_values)
+            df.fillna('null', inplace=True)
+            df.to_csv(dataprepare + index + ".csv", header=True)
+            pass
+
+"""
+#df = pd.read_csv('uploads/Community Quarantine Facilities Daily Entry.csv',na_values = missing_values)
+df = pd.read_excel('uploads/COVID 19 Donation,UIT V3.xlsx',sheet_name='All',na_values= missing_values)
+df.fillna('null',inplace=True)
+df.to_csv('uploadsPrepare/test.csv',header=True)
+print(df.head())
+"""

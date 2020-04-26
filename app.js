@@ -1,58 +1,39 @@
-require("dotenv").config(); //dotenv library to use data from .env
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-var express = require("express");
-var cons = require("consolidate");
-var cookieParser = require("cookie-parser");
-var bodyParser = require("body-parser");
-var path = require("path");
-var http = require("http");
-var mongoose = require("mongoose"); //mongoose library for mongodb models
+const cors = require("./middlewares/cors");
+const adminRoute = require("./routes/admin.route");
+const GenerateRoute = require("./routes/generate.route");
 
-var app = express();
-var port = 3000;
+dotenv.config();
+const app = express();
 
-console.log(process.env.DATABASE_URL);
-//connect mongoose to database
+// initialize mongoose connection
 mongoose.connect(process.env.DATABASE_URL, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
-var db = mongoose.connection; //specify db is mongoose connection
+const db = mongoose.connection;
 
-//routes
-var dummyData = require("./defaultRoutes/dummy.route");
-var admin = require("./defaultRoutes/admin.route");
-var generate = require("./index");
+// set access-controll-allow-origin to *
+app.all("*", cors);
 
-app.engine("html", cons.swig);
-
-app.set("port", port);
-app.set("view engine", "html");
-app.set("views", path.join(__dirname, "views"));
-
-app.all("*", function (req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "X-Requested-With");
-	next();
-});
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/static", express.static(path.join(__dirname, "public")));
+// load default routes
+app.use("/api/admin", adminRoute);
+app.use("/api/generate", GenerateRoute);
 
-//app.use("/api/contacts", contact);
-app.use("/api/dummy", dummyData);
-app.use("/api/admin", admin);
-//app.use("/api/news", news);
-app.use("/api/generate", generate);
+// start server
+app.listen(process.env.PORT, () => {
+	console.log(`server started on http://localhost:${process.env.PORT}`);
+});
 
-app.listen(port);
-console.log("Starting.....");
-console.log("http://" + process.env.ADDRESS + ":" + port);
-
-//open db which is mongoose connection
-db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("Database connection successful..."));
+db.on("error", (err) => {
+	console.error(err);
+});
+db.once("open", () => {
+	console.log("Database connected!");
+});

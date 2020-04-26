@@ -1,32 +1,25 @@
 {
-  "name": "CovidAPI",
+  "name": "covidapi",
   "version": "1.0.0",
-  "description": "",
+  "description": "Hospital information and News information REST endpoint",
   "main": "app.js",
+  "repository": "https://github.com/phonemyatkhine/covidapi",
+  "author": "Hein Thanth",
+  "license": "MIT",
+  "private": true,
   "scripts": {
-    "start": "nodemon app.js",
-    "devStart": "nodemon server.js"
+    "start": "nodemon ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
-    "body-parser": "^1.19.0",
-    "consolidate": "^0.15.1",
-    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "http": "0.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.10",
-    "mongoose-unique-validator": "^2.0.3",
     "multer": "^1.4.2",
-    "muter": "^0.7.0",
     "neat-csv": "^5.2.0",
-    "nodemon": "^2.0.2",
-    "path": "^0.12.7",
-    "swig": "^1.4.2",
     "xlsx": "^0.15.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
   }
 }
