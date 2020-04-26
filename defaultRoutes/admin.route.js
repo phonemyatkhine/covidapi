@@ -47,33 +47,11 @@ router.get("/collections", Checker, function (req, res) {
 					}
 				});
 				res.setHeader("Access-Control-Allow-Origin", "*");
-				res.json(Redata);
+				res.status(200).json(Redata);
 			});
 		}
 	);
 });
-
-//dev stage
-router.get("/", Checker, function (req, res) {
-	// res.redirect("http://localhost:3000/static/coviddashB/html/main.html");
-	res.json({ code: 200, body: "success" });
-});
-
-router.get("/login", function (req, res) {
-	// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
-	res.json({ code: 403, body: "Login required" });
-});
-
-// router.get(/\/login(\/r=(.*))?/, (req, res) => {
-// 	// above regex resolve /login/r=uri-to-redirect
-// 	const render_data = { redirect_to: undefined };
-// 	const redirect_url = req.params[1];
-// 	if (redirect_url) {
-// 		render_data = { redirect_to: redirect_url };
-// 	}
-// 	// redirect_url will embed to login page
-// 	res.render("login", render_data);
-// });
 
 router.post("/login", async (req, res) => {
 	let email = req.body.email;
@@ -84,20 +62,19 @@ router.post("/login", async (req, res) => {
 	if (req.cookies.token != null) {
 		token = req.cookies.token;
 		console.log("Token found " + token);
+
 	}
 
 	if (token) {
 		jwt.verify(token, process.env.KEY, (err, _nil) => {
 			if (err) {
 				console.log("verifying error");
-
-				// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
-				res.json({ code: 403, body: "Login required" });
+				res.status(403).json({
+					code: 403,
+					error: "Invalid token",
+				});
 			} else {
-				console.log("work");
-
-				// res.redirect("http://localhost:3000/static/coviddashB/html/main.html")
-				res.json({ code: 200, body: "success" });
+				res.status(200).json({ code: 200, token: token });
 			}
 		});
 	} else {
@@ -126,30 +103,22 @@ router.post("/login", async (req, res) => {
 							expiresIn: "1d",
 						}
 					);
-					console.log("Assign Cookie");
-
-					// res.status(200)
-					// 	.cookie("token", token, {
-					// 		expires: new Date(Date.now() + expiration),
-					// 		secure: false,
-					// 		httpOnly: true,
-					// 	})
-					// 	.cookie("acc", email)
-					// 	.redirect(
-					// 		"http://localhost:3000/static/coviddashB/html/main.html"
-					// 	);
-					res.json({ code: 200, body: { "token": token, "acc": email } });
+					console.log("returning token");
+					res.status(200).json({ code: 200, token: token });
 				} else {
-					// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
-					res.json({ code: 403, body: "Login required" });
+					res.status(403).json({
+						code: 403,
+						error: "Invalid email or password",
+					});
 				}
 			} else {
-				// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
-				res.json({ code: 403, body: "Login required" });
+				res.status(403).json({
+					code: 403,
+					error: "Invalid email or password",
+				});
 			}
 		} catch (err) {
-			// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
-			res.json({ code: 403, body: "Login required" });
+			res.status(500).json({ code: 500, error: "Something went wrong" });
 		}
 	}
 });
@@ -181,8 +150,10 @@ router.post("/register", async (req, res) => {
 					email: email,
 				});
 				if (newAdmin) {
-					// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
-					res.json({ code: 403, body: "Login required" });
+					res.status(422).json({
+						code: 422,
+						error: "email address is already registered.",
+					});
 				} else {
 					await admin.save();
 					token = jwt.sign(
@@ -195,39 +166,13 @@ router.post("/register", async (req, res) => {
 							expiresIn: "1d",
 						}
 					);
-					// res.status(200)
-					// 	.cookie("token", token, {
-					// 		expires: new Date(Date.now() + expiration),
-					// 		secure: false,
-					// 		httpOnly: true,
-					// 	})
-					// 	.cookie("acc", email)
-					// 	.redirect(
-					// 		"http://localhost:3000/static/coviddashB/html/main.html"
-					// 	);
-					res.json({ code: 200, body: { "token": token, "acc": email } });
+					res.status(201).json({ code: 201, token: token });
 				}
 			} catch (err) {
-				res.status(200).json({
-					body: "Admin Account Created",
-				});
+				res.status(500).json({ code: 500, error: err.body });
 			}
 		} catch (err) {
-			res.status(500).json({
-				body: err.body,
-			});
+			res.status(500).json({ code: 500, error: err.body });
 		}
 	}
-});
-
-router.post("/logout", async (req, res) => {
-	console.log("logging out");
-	if (req.cookies.token != null) {
-		res.status(200)
-			.clearCookie("token")
-			// .redirect("http://localhost:3000/static/coviddashB/html/login.html");
-			.json({ code: 403, body: "Login required" });
-	}
-	// res.redirect("http://localhost:3000/static/coviddashB/html/login.html");
-	res.json({ code: 403, body: "Login required" });
 });
