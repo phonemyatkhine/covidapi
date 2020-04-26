@@ -31,19 +31,14 @@ mongoose.connect(process.env.DATABASE_URL, {
 });
 var db = mongoose.connection;
 
-app.get("/", async function (req, res) {
-	res.json({ load: "Load" });
-});
-
 app.post("/", upload, (req, res) => {
 	console.log("Uploading");
 
 	upload(req, res, function (err) {
 		if (err) {
-			return res.end("Error uploading file.");
+			return res.status(500).json({ code: 500, error: err.body });
 		}
-		// res.redirect("/api/admin");
-		res.json({ code: 200, body: "accepted" });
+		res.status(201).json({ code: 201, status: "uploaded" });
 	});
 });
 
@@ -95,8 +90,7 @@ async function PrepareData(req, res) {
 	});
 
 	console.log(SysParams);
-	// res.redirect("/api/admin");
-	res.json({ code: 200, body: "accepted" });
+	res.status(200).json({ code: 200, status: "success" });
 }
 
 async function CreateModels(req, res, next) {
@@ -107,8 +101,7 @@ async function CreateModels(req, res, next) {
 		files.forEach(async (element) => {
 			await chooseFileType(element);
 		});
-		// res.redirect("/api/admin");
-		res.json({ code: 200, body: "accepted" });
+		res.status(201).json({ code: 201, status: "success" });
 	});
 }
 
@@ -124,8 +117,7 @@ async function LoadModules(req, res, next) {
 			moudlesName.push(name);
 			modules.push(require(__dirname + "/models/" + element));
 		}
-		// res.redirect("/api/admin");
-		res.json({ code: 200, body: "accepted" });
+		res.status(200).json({ code: 200, status: "success" });
 	});
 }
 
@@ -137,8 +129,7 @@ async function LoadData(req, res, next) {
 		await files.forEach((element) => {
 			chooseFileTypeData(element);
 		});
-		// res.redirect("/api/admin");
-		res.json({ code: 200, body: "accepted" });
+		res.status(200).json({ code: 200, status: "success" });
 	});
 }
 
@@ -151,7 +142,7 @@ async function CreateRoutes(req, res, next) {
 			chooseFileTypeRoute(element);
 		});
 		// res.redirect("/api/admin");
-		res.json({ code: 200, body: "accepted" });
+		res.status(200).json({ code: 200, status: "success" });
 	});
 }
 
@@ -171,7 +162,7 @@ async function LoadRoutes(req, res, next) {
 		}
 	});
 	// res.redirect("/api/admin");
-	res.json({ code: 200, body: "accepted" });
+	res.status(200).json({ code: 200, status: "success" });
 }
 
 async function chooseFileType(filename) {
