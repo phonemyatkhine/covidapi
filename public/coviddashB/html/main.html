@@ -80,7 +80,7 @@
           </div>
         </a>
 
-        <a href="" class="simple-text logo-normal" style="font-size: 25px; color: black; font-weight: 500;"
+        <a href="" class="simple-text logo-normal" style="font-size: 25px; color: black; font-weight: 500; font-size: 17px;"
           id="adminName">
           Admin
         </a>
@@ -94,9 +94,8 @@
               <div>
                 <p style="color: blue; font-weight: 530; font-size: 14px;">
                   Add More
-                  <!--&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;-->
                   <form action="/api/generate/" enctype="multipart/form-data" method="post">
-                    <input type="file" name="file-to-upload">
+                    <input type="file" name="file-to-upload"><br><br>&nbsp
                     <input type="submit" value="Upload">
                   </form>
                   <!--<span class="fa fa-plus-circle fa-fw" style="font-size:22px;"></span>-->
@@ -111,7 +110,7 @@
 
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent" style="z-index: 1;">
         <div class="container-fluid" style="background-color: blue;">
           <div class="navbar-wrapper">
             <div class="navbar-toggle">
@@ -166,6 +165,52 @@
 
       <!-- The Modal -->
 
+      
+      <div style="margin-left: 70px; color: blue;  ">
+        <p>
+          <a href="http://localhost:3000/api/generate/prepareData" style="color: blue;float: left;"> Prepare Data &nbsp;
+          </p><br>
+
+        <p>
+          <a href="http://localhost:3000/api/generate/createModels" style="color: blue;float: left;">Create Models 
+            &nbsp;
+          </p><br>
+
+        <p>
+          <a href="http://localhost:3000/api/generate/loadModules" style="color: blue;float: left;">Load Modules &nbsp;
+          </p><br>
+
+        <p>
+          <a href="http://localhost:3000/api/generate/loadData" style="color: blue;float: left;">Load Data &nbsp;
+          </p><br>
+
+        <p>
+          <a href="http://localhost:3000/api/generate/createRoutes" style="color: blue;float: left;">Create Routes
+            &nbsp;
+          </p><br>
+
+        <p>
+          <a href="http://localhost:3000/api/generate/loadRoutes" style="color: blue;float: left;">Load Routes &nbsp;
+          </p><br>
+
+        <div style="float:right;margin-right:15%;width: 12%; ">
+          <p>
+            <a style="color: blue;float: left; " onclick="PopUpTheForm(this)" id="Add">
+              <span class="fa fa-plus-circle fa-fw" style="font-size:30px;"></span>
+            </a>
+          
+          
+            <a style="color: blue;float: left; " onclick="PopUpTheForm(this)" id="Delete">
+              <span class="fa fa-trash" style="font-size:30px; padding: 0px 5px  20px 7px;"></span>
+            </a>
+
+            <a style="color: blue;float: right;" onclick="PopUpTheForm(this)" id="Update">
+              <span class="fa fa-edit" style="font-size:30px;"></span>
+            </a>
+          </p>
+        </div>
+      </div>
+
 
       <div id="popSearchDiv" class="modal">
         <!-- Modal Content -->
@@ -208,52 +253,6 @@
         </form>
       </div>
 
-      <div style="margin-left: 50px; color: blue;">
-
-        <p>
-          <a style="color: blue;float: left;" onclick="PopUpTheForm(this)" id="Add">Add more data &nbsp;
-            <span class="fa fa-plus-circle fa-fw" style="font-size:22px;"></span>
-          </a>
-        </p>
-
-        <p>
-          <a href="http://localhost:3000/api/generate/prepareData" style="color: blue;float: left;">Prepare Data &nbsp;
-        </p>
-
-        <p>
-          <a href="http://localhost:3000/api/generate/createModels" style="color: blue;float: left;">Create Models
-            &nbsp;
-        </p>
-
-        <p>
-          <a href="http://localhost:3000/api/generate/loadModules" style="color: blue;float: left;">Load Modules &nbsp;
-        </p>
-
-        <p>
-          <a href="http://localhost:3000/api/generate/loadData" style="color: blue;float: left;">Load Data &nbsp;
-        </p>
-
-        <p>
-          <a href="http://localhost:3000/api/generate/createRoutes" style="color: blue;float: left;">Create Routes
-            &nbsp;
-        </p>
-
-        <p>
-          <a href="http://localhost:3000/api/generate/loadRoutes" style="color: blue;float: left;">Load Routes &nbsp;
-        </p>
-
-        <div style="float:right;margin-right: 10%;width: 10%;">
-          <p>
-            <a style="color: blue;float: left;" onclick="PopUpTheForm(this)" id="Delete">
-              <span class="fa fa-trash" style="font-size:30px;"></span>
-            </a>
-
-            <a style="color: blue;float: right;" onclick="PopUpTheForm(this)" id="Update">
-              <span class="fa fa-edit" style="font-size:30px;"></span>
-            </a>
-          </p>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -291,16 +290,19 @@
     var idArr = [];
 
     function Starting() {
+
+
       try {
         var admin = document.getElementById("adminName");
         admin.innerHTML = getCookie("acc");
-
+        
         var request = new XMLHttpRequest()
         request.open('GET', 'http://localhost:3000/api/admin/collections', true)
         request.onload = function () {
 
           try {
             data = JSON.parse(this.response)
+
           } catch (e) {
             window.location = "http://localhost:3000/static/coviddashB/html/login.html";
           }
@@ -369,7 +371,9 @@
       request.onload = function () {
         var data;
         try {
+
           data = JSON.parse(this.response)
+           
         } catch (e) {
           //window.location = "http://localhost:3000/static/coviddashB/html/login.html";
         }

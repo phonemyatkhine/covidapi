@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
 
 	if (req.cookies.token != null) {
 		token = req.cookies.token;
-		console.log("Tokein found " + token);
+		console.log("Token found " + token);
 	}
 
 	if (token) {
