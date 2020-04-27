@@ -23,8 +23,8 @@ const GetCollections = (req, res) => {
 };
 
 const Login = async (req, res) => {
-	let email = req.body.email;
-	let password = req.body.password;
+	let email = req.body.email || req.query.email;
+	let password = req.body.password || req.query.password;
 	console.log("Login calling " + email + " : " + password);
 	var token = null;
 
@@ -89,9 +89,10 @@ const Login = async (req, res) => {
 
 const Register = async (req, res) => {
 	// use password salt for uncrackable hash
-	let email = req.body.email;
-	let password = req.body.password;
-	let key = req.body.key;
+	let email = req.body.email || req.query.email;
+	let password = req.body.password || req.query.password;
+	let key = req.body.key || req.query.key;
+
 	let salt = "_" + Math.random().toString(36).substr(2, 9);
 
 	let SaltedPassword = `${password}${salt}`;

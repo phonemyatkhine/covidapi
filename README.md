@@ -87,22 +87,6 @@ Prepare uploaded data
 		- additional message for operation
 		- optionally returned
 
-### `GET` /generate/data/prepare
-
-Prepare uploaded data
-
-- parameters
-	- `token` - access token exchanged by **logging in** or **registering**
-- returns
-	- `code`
-		- 201 if no error
-		- 403 if invalid `token`
-	- `status`
-		- return **success** if `code` is **201**
-	- `message`
-		- additional message for operation
-		- optionally returned
-
 ### `GET` /generate/data/load
 
 Load prepared data
