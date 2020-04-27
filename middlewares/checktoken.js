@@ -9,8 +9,9 @@ const fn = (req, res, next) => {
 					code: 403,
 					error: "invalid token",
 				});
+			} else {
+				next();
 			}
-			next();
 		});
 	} else {
 		res.status(403).json({

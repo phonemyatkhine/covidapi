@@ -12,13 +12,14 @@ const GetCollections = (req, res) => {
 				error:
 					"Something went wrong when exporting mongoose collection list",
 			});
+		} else {
+			collections.forEach((collection) => {
+				if (collection.name !== "admin") {
+					list.push(collection.name);
+				}
+			});
+			res.status(200).json({ code: 200, data: list });
 		}
-		collections.forEach((collection) => {
-			if (collection.name !== "admin") {
-				list.push(collection.name);
-			}
-		});
-		res.status(200).json({ code: 200, data: list });
 	});
 };
 
