@@ -14,13 +14,14 @@ for i in range(1, argc):
 
     if file.find(".csv") >= 0:
         df = pd.read_csv(uploaded + file, na_values=missing_values)
+        #print(df.head())
         df.fillna('null', inplace=True)
         df.to_csv(dataprepare + file, header=True)
     if file.find(".xlsx") >= 0:
         xl = pd.ExcelFile(uploaded + file)
         for index in xl.sheet_names:
-            df = pd.read_excel(
-                uploaded + file, sheet_name=index, na_values=missing_values)
+            df = pd.read_excel(uploaded + file, sheet_name=index, na_values=missing_values)
+            #print(df.head())
             df.fillna('null', inplace=True)
             df.to_csv(dataprepare + index + ".csv", header=True)
             pass
