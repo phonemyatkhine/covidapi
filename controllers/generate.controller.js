@@ -396,6 +396,7 @@ function CreatingRouteJs(filename, params) {
 }
 
 async function CSVDatareader(filename) {
+	var moudlesName = [];
 	var Data;
 	fs.readFile(
 		path.join(__dirname, "../data", filename),
@@ -451,6 +452,7 @@ async function CSVDatareader(filename) {
 }
 
 async function XlsxDatareader(filename) {
+	var moudlesName = [];
 	var Data;
 	var workbook = xlsx.readFile(path.join(__dirname, "../data", filename));
 	var sheet_name_list = workbook.SheetNames;
