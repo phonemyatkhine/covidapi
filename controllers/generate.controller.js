@@ -7,6 +7,11 @@ const express = require("express");
 
 const router = express.Router();
 
+var modules = [];
+var moudlesName = [];
+var routeModules = [];
+var routeModulesName = [];
+
 const PrepareData = async (req, res) => {
 	let param = [path.join(__dirname, "../scripts/prepare")];
 
@@ -396,7 +401,6 @@ function CreatingRouteJs(filename, params) {
 }
 
 async function CSVDatareader(filename) {
-	var moudlesName = [];
 	var Data;
 	fs.readFile(
 		path.join(__dirname, "../data", filename),
@@ -452,7 +456,6 @@ async function CSVDatareader(filename) {
 }
 
 async function XlsxDatareader(filename) {
-	var moudlesName = [];
 	var Data;
 	var workbook = xlsx.readFile(path.join(__dirname, "../data", filename));
 	var sheet_name_list = workbook.SheetNames;
