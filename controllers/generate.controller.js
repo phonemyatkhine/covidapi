@@ -20,7 +20,7 @@ const PrepareData = async (req, res) => {
 			param.push(name);
 		});
 
-		proc = spawn("python", param);
+		proc = spawn("python3", param);
 
 		proc.stdout.on("data", (data) => {
 			console.log(`stdout: ${data}`);

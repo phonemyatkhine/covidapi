@@ -23,6 +23,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // load default routes
+app.all("/api", (req, res, next) => {
+	res.status(200).json({ code: 200, data: "Server is working its best!" });
+	next();
+});
+
 app.use("/api/admin", adminRoute);
 app.use("/api/generate", GenerateRoute);
 
